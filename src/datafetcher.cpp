@@ -80,7 +80,7 @@ void Datafetcher::search()
         QList<QString> fields;
 
         if (elem->getTitle()) {
-            fields.push_back("\"titles\"");
+            fields.push_back("\"title\"");
         }
         if (elem->getChannel()) {
             fields.push_back("\"channel\"");
