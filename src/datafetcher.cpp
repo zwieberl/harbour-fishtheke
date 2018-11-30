@@ -2,6 +2,8 @@
 #include "filterelement.h"
 #include <QtNetwork>
 
+constexpr int searchBlockSize = 25;
+
 QString Datafetcher::seconds_to_DHMS(int duration)
 {
   QString res;
@@ -21,7 +23,16 @@ QString Datafetcher::seconds_to_DHMS(int duration)
 void Datafetcher::reset()
 {
     searching = false;
-    resultsObject = {};
+    beginResetModel();
+    resultsArray = {};
+    offset = 0;
+    moreToLoad = true;
+    endResetModel();
+}
+
+bool Datafetcher::getMoreToLoad() const
+{
+    return moreToLoad;
 }
 
 Datafetcher::Datafetcher(QObject *parent) : QAbstractListModel(parent)
@@ -32,11 +43,7 @@ Datafetcher::Datafetcher(QObject *parent) : QAbstractListModel(parent)
 
 int Datafetcher::rowCount(const QModelIndex &) const
 {
-    if (resultsObject.contains("results")) {
-        return resultsObject["results"].toArray().size();
-    } else {
-        return 0;
-    }
+    return resultsArray.size();
 }
 
 QVariant Datafetcher::data(const QModelIndex &index, int role) const
@@ -45,8 +52,7 @@ QVariant Datafetcher::data(const QModelIndex &index, int role) const
         return QVariant();
     }
     if(role == Qt::DisplayRole) {
-        const QJsonArray &results = resultsObject["results"].toArray();
-        const QJsonObject &curr = results[index.row()].toObject();
+        const QJsonObject &curr = resultsArray[index.row()].toObject();
         QMap<QString,QVariant> resultMap;
         for (auto &key : curr.keys()) {
             switch (curr[key].type()) {
@@ -98,7 +104,8 @@ void Datafetcher::search()
     }
     QString payload = "{\"queries\":[";
     payload += filter.join(',');
-    payload += "],\"size\":999}";
+    payload += "],\"size\":" + QString::number(searchBlockSize)
+              + ",\"offset\":" + QString::number(offset) + "}";
     qDebug() << "Searching: " << payload;
 
     QNetworkRequest request;
@@ -107,6 +114,12 @@ void Datafetcher::search()
     searching = true;
     emit searchStatusChanged();
     manager->post(request, payload.toLatin1());
+}
+
+void Datafetcher::loadMore()
+{
+    offset += searchBlockSize;
+    search();
 }
 
 bool Datafetcher::isSearchInProgress()
@@ -127,13 +140,20 @@ void Datafetcher::handleQueryReply(QNetworkReply *reply)
     QJsonDocument jsonResponse = QJsonDocument::fromJson(reply->readAll());
     QJsonObject jsonObject = jsonResponse.object();
 
-    beginResetModel();
     if (!jsonObject["err"].isNull()) {
         qDebug() << "Was an error!";
         emit queryError(jsonObject["err"].toString());
     } else {
-        resultsObject = jsonObject["result"].toObject();
+        QJsonArray arr = jsonObject["result"].toObject()["results"].toArray();
+        int numOfResults = arr.size();
+        if (numOfResults < searchBlockSize) {
+            moreToLoad = false;
+        }
         emit searchStatusChanged();
+        for (auto elem : arr) {
+            beginInsertRows(QModelIndex(), resultsArray.size(), resultsArray.size());
+            resultsArray += elem;
+            endInsertRows();
+        }
     }
-    endResetModel();
 }

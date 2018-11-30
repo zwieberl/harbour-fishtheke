@@ -60,6 +60,10 @@
         <source>No results found</source>
         <translation>No results found</translation>
     </message>
+    <message>
+        <source>Load more</source>
+        <translation>Load more</translation>
+    </message>
 </context>
 <context>
     <name>SearchPage</name>

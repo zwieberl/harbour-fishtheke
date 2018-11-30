@@ -5,12 +5,13 @@ Page {
     Connections {
         target: datafetcher
         onSearchStatusChanged: {
-            if (!datafetcher.isSearchInProgress()) {
-                loadingIndicator.running = false;
-                loadingIndicator.visible = false;
+            loadingIndicator.running = datafetcher.isSearchInProgress();
+            loadingIndicator.visible = datafetcher.isSearchInProgress();
+            if (!datafetcher.isSearchInProgress() && datafetcher.moreToLoad) {
+                console.warn('datafetcher.moreToLoad: ' + datafetcher.moreToLoad)
+                loadMoreMenu.enabled = true
             } else {
-                loadingIndicator.running = true;
-                loadingIndicator.visible = true;
+                loadMoreMenu.enabled = false
             }
         }
     }
@@ -32,6 +33,22 @@ Page {
     }
 
     id: resultsPage
+    SilicaFlickable {
+        id: resFlick
+        anchors.fill: parent
+        // Tell SilicaFlickable the height of its content.
+        contentHeight: resultsPage.height
+        contentWidth: resultsPage.width
+        PushUpMenu {
+            id: loadMoreMenu
+            quickSelect: true
+            MenuItem {
+                text: qsTr("Load more")
+                onClicked: {
+                    datafetcher.loadMore();
+                }
+            }
+        }
       SilicaListView {
         id: listView
         height: parent.height
@@ -110,4 +127,5 @@ Page {
 
         VerticalScrollDecorator {}
     }
+  }
 }
