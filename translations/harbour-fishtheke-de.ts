@@ -107,5 +107,33 @@
         <source>titles</source>
         <translation>Titel</translation>
     </message>
+    <message>
+        <source>Sorted by</source>
+        <translation>Sortiert nach</translation>
+    </message>
+    <message>
+        <source>timestamp</source>
+        <translation>Ausstrahlungsdatum</translation>
+    </message>
+    <message>
+        <source>duration</source>
+        <translation>Dauer</translation>
+    </message>
+    <message>
+        <source>Items per search</source>
+        <translation>Suchresultate pro Suche</translation>
+    </message>
+    <message>
+        <source>Sort order</source>
+        <translation>Reihenfolge</translation>
+    </message>
+    <message>
+        <source>desc</source>
+        <translation>Absteigend</translation>
+    </message>
+    <message>
+        <source>asc</source>
+        <translation>Aufsteigend</translation>
+    </message>
 </context>
 </TS>

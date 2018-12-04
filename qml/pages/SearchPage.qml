@@ -35,12 +35,72 @@ Page {
 
         Column {
             id: contentColumn
-            spacing: Theme.paddingLarge
+            spacing: Theme.paddingSmall
             width: parent.width
 
             PageHeader {
                 id: header
                 title: qsTr("Search");
+            }
+
+            ComboBox {
+                width: parent.width
+                label: qsTr("Sorted by") + ":"
+
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("timestamp")}
+                    MenuItem { text: qsTr("duration") }
+                    MenuItem { text: qsTr("channel")  }
+                }
+                onValueChanged: {
+                    switch (currentIndex) {
+                    case 2:
+                        datafetcher.sortedBy = "channel"
+                        break;
+                    case 1:
+                        datafetcher.sortedBy = "duration"
+                        break;
+                    case 0:
+                    default:
+                        datafetcher.sortedBy = "timestamp"
+                        break;
+                    };
+                }
+            }
+
+            ComboBox {
+                width: parent.width
+                label: qsTr("Sort order") + ":"
+
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("desc")}
+                    MenuItem { text: qsTr("asc") }
+                }
+                onValueChanged: {
+                    switch (currentIndex) {
+                    case 1:
+                        datafetcher.sortOrder = "asc"
+                        break;
+                    case 0:
+                    default:
+                        datafetcher.sortOrder = "desc"
+                        break;
+                    };
+                }
+            }
+
+            Slider {
+                width: parent.width
+                minimumValue: 1
+                maximumValue: 100
+                stepSize: 1
+                value: 25
+//                valueText: value + " " + qsTr("Items per search")
+                valueText: value
+                label: qsTr("Items per search")
+                onValueChanged: {
+                    datafetcher.searchBlockSize = value;
+                }
             }
 
             SilicaListView {

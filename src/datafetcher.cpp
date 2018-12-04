@@ -2,24 +2,6 @@
 #include "filterelement.h"
 #include <QtNetwork>
 
-constexpr int searchBlockSize = 25;
-
-QString Datafetcher::seconds_to_DHMS(int duration)
-{
-  QString res;
-  int seconds = (int) (duration % 60);
-  duration /= 60;
-  int minutes = (int) (duration % 60);
-  duration /= 60;
-  int hours = (int) (duration % 24);
-  int days = (int) (duration / 24);
-  if((hours == 0)&&(days == 0))
-      return res.sprintf("%02d:%02d", minutes, seconds);
-  if (days == 0)
-      return res.sprintf("%02d:%02d:%02d", hours, minutes, seconds);
-  return res.sprintf("%dd%02d:%02d:%02d", days, hours, minutes, seconds);
-}
-
 void Datafetcher::reset()
 {
     searching = false;
@@ -33,6 +15,46 @@ void Datafetcher::reset()
 bool Datafetcher::getMoreToLoad() const
 {
     return moreToLoad;
+}
+
+int Datafetcher::getSearchBlockSize() const
+{
+    return searchBlockSize;
+}
+
+void Datafetcher::setSearchBlockSize(int value)
+{
+    searchBlockSize = value;
+}
+
+QString Datafetcher::getSortedBy() const
+{
+    return sortedBy;
+}
+
+void Datafetcher::setSortedBy(const QString &value)
+{
+    sortedBy = value;
+}
+
+QString Datafetcher::getSortOrder() const
+{
+    return sortOrder;
+}
+
+void Datafetcher::setSortOrder(const QString &value)
+{
+    sortOrder = value;
+}
+
+bool Datafetcher::getFuture() const
+{
+    return future;
+}
+
+void Datafetcher::setFuture(bool value)
+{
+    future = value;
 }
 
 Datafetcher::Datafetcher(QObject *parent) : QAbstractListModel(parent)
@@ -105,7 +127,13 @@ void Datafetcher::search()
     QString payload = "{\"queries\":[";
     payload += filter.join(',');
     payload += "],\"size\":" + QString::number(searchBlockSize)
-              + ",\"offset\":" + QString::number(offset) + "}";
+              + ",\"offset\":" + QString::number(offset)
+              + ",\"sortBy\":\"" + sortedBy + "\""
+              + ",\"sortOrder\":\"" + sortOrder + "\"";
+    if (future) {
+        payload += ",\"future\":true";
+    }
+    payload += "}";
     qDebug() << "Searching: " << payload;
 
     QNetworkRequest request;

@@ -107,5 +107,33 @@
         <source>Remove</source>
         <translation>Remove</translation>
     </message>
+    <message>
+        <source>Sorted by</source>
+        <translation>Sorted by</translation>
+    </message>
+    <message>
+        <source>timestamp</source>
+        <translation>Air date</translation>
+    </message>
+    <message>
+        <source>duration</source>
+        <translation>Duration</translation>
+    </message>
+    <message>
+        <source>Items per search</source>
+        <translation>Retrieved items per search</translation>
+    </message>
+    <message>
+        <source>Sort order</source>
+        <translation>Sort order</translation>
+    </message>
+    <message>
+        <source>desc</source>
+        <translation>Descending</translation>
+    </message>
+    <message>
+        <source>asc</source>
+        <translation>Ascending</translation>
+    </message>
 </context>
 </TS>
