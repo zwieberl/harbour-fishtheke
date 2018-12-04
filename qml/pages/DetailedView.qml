@@ -1,13 +1,9 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "../utils.js" as Datehelper
 
 Page {
     id: detailPage
-    function date_from_epoch(timestamp) {
-        var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-        d.setUTCSeconds(timestamp);
-        return d.toLocaleString();
-    }
 
     property var item
     SilicaFlickable {
@@ -30,8 +26,8 @@ Page {
 
             DetailItem { id: title; label: qsTr("title"); value: item.title }
             DetailItem { label: qsTr("channel"); value: item.channel }
-            DetailItem { label: qsTr("duration"); value: datafetcher.seconds_to_DHMS(item.duration) }
-            DetailItem { label: qsTr("timestamp"); value: date_from_epoch(item.timestamp) }
+            DetailItem { label: qsTr("duration"); value: Datehelper.seconds_to_DHMS(item.duration) }
+            DetailItem { label: qsTr("timestamp"); value: Datehelper.date_from_epoch(item.timestamp) }
             Text {
                 color: Theme.primaryColor
                 width: parent.width

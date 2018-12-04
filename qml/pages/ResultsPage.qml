@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import "../utils.js" as Datehelper
 Page {
     Connections {
         target: datafetcher
@@ -59,54 +59,52 @@ Page {
         model: datafetcher
 
         delegate: ListItem {
-            contentHeight: wordRow.height + Theme.paddingMedium
+            contentHeight: Theme.itemSizeLarge
             contentWidth: parent.width
             onClicked: {pageStack.push(Qt.resolvedUrl("DetailedView.qml"), {"item": display})}
-
-            Row {
-                id: wordRow
+            Column {
                 width: parent.width
-                spacing: Theme.paddingLarge
-                x: Theme.horizontalPageMargin
-                anchors.verticalCenter: parent.verticalCenter
-                Column {
-                    id: columnChannel
-                    width: parent.width / 6 - ( 2 * Theme.paddingMedium )
+                Row {
+                    width: parent.width
+                    height: Theme.fontSizeExtraSmall
                     Label {
-                        color: Theme.primaryColor
-                        width: parent.width
-                        font.pixelSize: Theme.fontSizeSmall
+                        width: parent.width / 4
+                        color: Theme.secondaryColor
+                        font.pixelSize: Theme.fontSizeExtraSmall
                         wrapMode: Text.Wrap
-                        truncationMode: TruncationMode.Fade
+                        horizontalAlignment: Text.AlignLeft
+                        leftPadding: Theme.paddingMedium
                         text: display.channel
                     }
-                }
 
-                Column {
-                    id: columnTitle
-                    width: parent.width / 2 - ( 2 * Theme.paddingMedium )
                     Label {
-                        color: Theme.primaryColor
-                        width: parent.width
-                        font.pixelSize: Theme.fontSizeSmall
+                        width: 3 * (parent.width / 4)
+                        color: Theme.secondaryColor
+                        font.pixelSize: Theme.fontSizeExtraSmall
                         wrapMode: Text.Wrap
-                        truncationMode: TruncationMode.Fade
-                        text: display.title
-                    }
-                }
-
-                Column {
-                    id: columnDuration
-                    width: parent.width / 4
-                    Label {
-                        color: Theme.primaryColor
-                        width: parent.width - Theme.horizontalPageMargin
-                        font.pixelSize: Theme.fontSizeSmall
-                        wrapMode: Text.Wrap
-                        truncationMode: TruncationMode.Fade
                         horizontalAlignment: Text.AlignRight
-                        text: datafetcher.seconds_to_DHMS(display.duration)
+                        rightPadding: Theme.paddingMedium
+                        text: Datehelper.date_from_epoch(display.timestamp)
                     }
+                }
+
+                Label {
+                    color: Theme.primaryColor
+                    width: parent.width - Theme.horizontalPageMargin
+                    font.pixelSize: Theme.fontSizeSmall
+                    truncationMode: TruncationMode.Fade
+                    horizontalAlignment: Text.AlignLeft
+                    leftPadding: Theme.paddingMedium
+                    text: display.title
+                }
+
+                Label {
+                    color: Theme.secondaryColor
+                    width: parent.width - Theme.horizontalPageMargin
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    wrapMode: Text.Wrap
+                    leftPadding: Theme.paddingMedium
+                    text: Datehelper.seconds_to_DHMS(display.duration)
                 }
             }
         }
