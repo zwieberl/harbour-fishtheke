@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
     ctxt->setContextProperty("queryFilters", &dataFetcher.queryFilters);
 
     qmlRegisterType<FilterElement>("fishtheke.filterelement", 1, 0, "FilterElement");
+    qmlRegisterType<SortKey>("fishtheke.sortkey", 1, 0, "SortKey");
+    qmlRegisterType<SortOrder>("fishtheke.sortorder", 1, 0, "SortOrder");
 
     view->setSource(SailfishApp::pathTo("qml/harbour-fishtheke.qml"));
     view->show();

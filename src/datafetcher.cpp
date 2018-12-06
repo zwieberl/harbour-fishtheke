@@ -27,22 +27,22 @@ void Datafetcher::setSearchBlockSize(int value)
     searchBlockSize = value;
 }
 
-QString Datafetcher::getSortedBy() const
+SortKey::EnumSortKey Datafetcher::getSortedBy() const
 {
     return sortedBy;
 }
 
-void Datafetcher::setSortedBy(const QString &value)
+void Datafetcher::setSortedBy(const SortKey::EnumSortKey &value)
 {
     sortedBy = value;
 }
 
-QString Datafetcher::getSortOrder() const
+SortOrder::EnumSortOrder Datafetcher::getSortOrder() const
 {
     return sortOrder;
 }
 
-void Datafetcher::setSortOrder(const QString &value)
+void Datafetcher::setSortOrder(const SortOrder::EnumSortOrder &value)
 {
     sortOrder = value;
 }
@@ -55,6 +55,35 @@ bool Datafetcher::getFuture() const
 void Datafetcher::setFuture(bool value)
 {
     future = value;
+}
+
+static QString sortedByString(SortKey::EnumSortKey sortedBy)
+{
+    switch (sortedBy) {
+    case SortKey::CHANNEL:
+        return "channel";
+        break;
+    case SortKey::DURATION:
+        return "duration";
+        break;
+    default:
+    case SortKey::TIMESTAMP:
+        return "timestamp";
+        break;
+    }
+}
+
+static QString sortOrderString(SortOrder::EnumSortOrder sortOrder)
+{
+    switch (sortOrder) {
+    case SortOrder::ASC:
+        return "asc";
+        break;
+    case SortOrder::DESC:
+    default:
+        return "desc";
+        break;
+    }
 }
 
 Datafetcher::Datafetcher(QObject *parent) : QAbstractListModel(parent)
@@ -128,8 +157,8 @@ void Datafetcher::search()
     payload += filter.join(',');
     payload += "],\"size\":" + QString::number(searchBlockSize)
               + ",\"offset\":" + QString::number(offset)
-              + ",\"sortBy\":\"" + sortedBy + "\""
-              + ",\"sortOrder\":\"" + sortOrder + "\"";
+              + ",\"sortBy\":\"" + sortedByString(sortedBy) + "\""
+              + ",\"sortOrder\":\"" + sortOrderString(sortOrder) + "\"";
     if (future) {
         payload += ",\"future\":true";
     }

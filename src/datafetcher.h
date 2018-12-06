@@ -9,6 +9,34 @@ class QNetworkAccessManager;
 class QNetworkReply;
 class FilterElement;
 
+// Wrapper-class needed to access Enum in QML
+class SortOrder : public QObject
+{
+    Q_OBJECT
+    public:
+    SortOrder() : QObject() {}
+    enum EnumSortOrder
+    {
+        DESC,
+        ASC
+    };
+    Q_ENUMS(EnumSortOrder)
+};
+
+class SortKey : public QObject
+{
+    Q_OBJECT
+    public:
+    SortKey() : QObject() {}
+    enum EnumSortKey
+    {
+        TIMESTAMP,
+        CHANNEL,
+        DURATION
+    };
+    Q_ENUMS(EnumSortKey)
+};
+
 class Datafetcher : public QAbstractListModel
 {
  Q_OBJECT
@@ -20,8 +48,8 @@ class Datafetcher : public QAbstractListModel
     int offset = 0;
     bool moreToLoad = true;
     int searchBlockSize = 25;
-    QString sortedBy = "timestamp";
-    QString sortOrder = "desc";
+    SortKey::EnumSortKey sortedBy = SortKey::TIMESTAMP;
+    SortOrder::EnumSortOrder sortOrder = SortOrder::DESC;
     bool future = false;
 
  public:
@@ -33,8 +61,8 @@ class Datafetcher : public QAbstractListModel
     virtual QVariant data(const QModelIndex &index, int role) const;
     Q_PROPERTY(bool moreToLoad READ getMoreToLoad)
     Q_PROPERTY(int searchBlockSize READ getSearchBlockSize WRITE setSearchBlockSize)
-    Q_PROPERTY(QString sortedBy READ getSortedBy WRITE setSortedBy)
-    Q_PROPERTY(QString sortOrder READ getSortOrder WRITE setSortOrder)
+    Q_PROPERTY(SortKey::EnumSortKey sortedBy READ getSortedBy WRITE setSortedBy)
+    Q_PROPERTY(SortOrder::EnumSortOrder sortOrder READ getSortOrder WRITE setSortOrder)
     Q_PROPERTY(bool future READ getFuture WRITE setFuture)
 
     Q_INVOKABLE void search();
@@ -47,11 +75,11 @@ class Datafetcher : public QAbstractListModel
     int getSearchBlockSize() const;
     void setSearchBlockSize(int value);
 
-    QString getSortedBy() const;
-    void setSortedBy(const QString &value);
+    SortKey::EnumSortKey getSortedBy() const;
+    void setSortedBy(const SortKey::EnumSortKey &value);
 
-    QString getSortOrder() const;
-    void setSortOrder(const QString &value);
+    SortOrder::EnumSortOrder getSortOrder() const;
+    void setSortOrder(const SortOrder::EnumSortOrder &value);
 
     bool getFuture() const;
     void setFuture(bool value);
@@ -62,7 +90,6 @@ public slots:
 signals:
    void searchStatusChanged();
    void queryError(const QString &);
-
 };
 
 #endif // DATAFETCHER_H

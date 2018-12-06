@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import fishtheke.filterelement 1.0
+import fishtheke.sortorder 1.0
+import fishtheke.sortkey 1.0
 
 Page {
     id: searchPage
@@ -55,14 +57,14 @@ Page {
                 onValueChanged: {
                     switch (currentIndex) {
                     case 2:
-                        datafetcher.sortedBy = "channel"
+                        datafetcher.sortedBy = SortKey.CHANNEL;
                         break;
                     case 1:
-                        datafetcher.sortedBy = "duration"
+                        datafetcher.sortedBy = SortKey.DURATION;
                         break;
                     case 0:
                     default:
-                        datafetcher.sortedBy = "timestamp"
+                        datafetcher.sortedBy = SortKey.TIMESTAMP;
                         break;
                     };
                 }
@@ -79,11 +81,11 @@ Page {
                 onValueChanged: {
                     switch (currentIndex) {
                     case 1:
-                        datafetcher.sortOrder = "asc"
+                        datafetcher.sortOrder = SortOrder.ASC;
                         break;
                     case 0:
                     default:
-                        datafetcher.sortOrder = "desc"
+                        datafetcher.sortOrder = SortOrder.DESC;
                         break;
                     };
                 }
