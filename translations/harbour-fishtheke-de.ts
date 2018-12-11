@@ -93,7 +93,7 @@
     </message>
     <message>
         <source>Pull down to add a filter</source>
-        <translation>Ziehe nach unten um einen Filter hinzuzufügen</translation>
+        <translation>Ziehe nach unten, um einen Filter hinzuzufügen</translation>
     </message>
     <message>
         <source>Remove</source>
