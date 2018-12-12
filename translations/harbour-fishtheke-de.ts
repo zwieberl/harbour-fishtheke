@@ -121,7 +121,7 @@
     </message>
     <message>
         <source>Items per search</source>
-        <translation>Suchresultate pro Suche</translation>
+        <translation>Anzahl an Resultaten</translation>
     </message>
     <message>
         <source>Sort order</source>
