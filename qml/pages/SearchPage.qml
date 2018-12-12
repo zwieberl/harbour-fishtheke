@@ -43,6 +43,20 @@ Page {
             PageHeader {
                 id: header
                 title: qsTr("Search");
+                Label {
+                    id: aboutText
+                    anchors {
+                        left: header.extraContent.left
+                        verticalCenter: header.extraContent.verticalCenter
+                    }
+                    width: header.extraContent.width
+                    text: qsTr("About")
+                    color: Theme.highlightColor
+                    font {
+                        pixelSize: Theme.fontSizeLarge
+                        family: Theme.fontFamilyHeading
+                    }
+                }
             }
 
             ComboBox {

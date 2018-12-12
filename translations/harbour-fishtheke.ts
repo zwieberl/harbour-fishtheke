@@ -2,6 +2,41 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en" sourcelanguage="en">
 <context>
+    <name>AboutPage</name>
+    <message>
+        <source>Licensed under MIT License</source>
+        <translation>Licensed under MIT License</translation>
+    </message>
+    <message>
+        <source>Sources on GitHub</source>
+        <translation>Sources on GitHub</translation>
+    </message>
+    <message>
+        <source>Credits</source>
+        <translation>Credits</translation>
+    </message>
+    <message>
+        <source>Contributions</source>
+        <translation>Contributions</translation>
+    </message>
+    <message>
+        <source>Another very special thanks to the following contributors</source>
+        <translation>Another very special thanks to the following contributors</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>Filter</translation>
+    </message>
+    <message>
+        <source>Special thanks to mediathekviewweb.de for providing their service and allowing me to utilize it with fishtheke!</source>
+        <translation>Special thanks to mediathekviewweb.de for providing their service and allowing me to utilize it with fishtheke!</translation>
+    </message>
+    <message>
+        <source>Design of icons and store-banner</source>
+        <translation>Design of icons and store-banner</translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <source>Fishtheke</source>
@@ -134,6 +169,10 @@
     <message>
         <source>asc</source>
         <translation>Ascending</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>About</translation>
     </message>
 </context>
 </TS>

@@ -4,8 +4,12 @@ import "pages"
 
 ApplicationWindow
 {
-    initialPage: Component { SearchPage { } }
+    id: main
+    Component.onCompleted: {
+        pageStack.push([aboutPage, searchPage], PageStackAction.Immediate)
+    }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
+    AboutPage { id: aboutPage }
+    SearchPage { id: searchPage}
 }
-// https://stackoverflow.com/questions/46943134/how-do-i-write-a-qt-http-get-request

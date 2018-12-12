@@ -32,7 +32,8 @@ DISTFILES += \
     qml/pages/ResultsPage.qml \
     qml/pages/DetailedView.qml \
     qml/pages/QueryDialog.qml \
-    qml/harbour-fishtheke.qml
+    qml/harbour-fishtheke.qml \
+    qml/pages/AboutPage.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
