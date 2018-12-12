@@ -17,8 +17,8 @@ Page {
     }
 
     onStatusChanged: {
-        if (status == PageStatus.Deactivating
-                && (_navigation == PageNavigation.Back || _navigationPending == PageNavigation.Back)) {
+        if (status == PageStatus.Deactivating && pageStack.depth === 2) {
+            // When deactivating because of DetailedView coming into view, we have pageStack.depth = 3
             datafetcher.reset()
         }
 
