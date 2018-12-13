@@ -128,7 +128,7 @@
     </message>
     <message>
         <source>Pull down to add a filter</source>
-        <translation>Ziehe nach unten um einen Filter hinzuzufügen</translation>
+        <translation>Ziehe nach unten, um einen Filter hinzuzufügen</translation>
     </message>
     <message>
         <source>Remove</source>
@@ -156,7 +156,7 @@
     </message>
     <message>
         <source>Items per search</source>
-        <translation>Suchresultate pro Suche</translation>
+        <translation>Anzahl an Resultaten</translation>
     </message>
     <message>
         <source>Sort order</source>
