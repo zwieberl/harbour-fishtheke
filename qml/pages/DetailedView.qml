@@ -39,7 +39,7 @@ Page {
             SilicaListView {
                 id: urlView
                 // Warning! height: parent.height leads to a weird hanging of the UI for a couple of seconds.
-                height: 2 * (Theme.fontSizeLarge + Theme.paddingMedium)
+                height: 8 * (Theme.fontSizeLarge + Theme.paddingMedium)
                 width: parent.width
                 anchors.left: parent.left
                 property string type
@@ -63,11 +63,17 @@ Page {
 
                 delegate: ListItem {
                     id: streamButtonItem
-
+                    menu: actionsMenu
                     onClicked: {
-                        copyNotification.text = qsTr("Copied to clipboard")
-                        Clipboard.text = url
+                        if (menuOpen) {
+                            closeMenu()
+                        } else {
+                            openMenu()
+                        }
                     }
+                    contentWidth: parent.width
+                    width: parent.width;
+                    contentHeight: Theme.itemSizeSmall // one line delegate
 
                     Label {
                         id: streamButtonLabel
@@ -77,16 +83,21 @@ Page {
                         color: streamButtonItem.highlighted ? Theme.highlightColor : Theme.highlightBackgroundColor
                         font.pixelSize: Theme.fontSizeLarge
                     }
-                }
-            }
 
-            Label {
-                id: copyNotification
-                topPadding: Theme.paddingLarge
-                color: Theme.primaryColor
-                font.pixelSize: Theme.fontSizeTiny
-                anchors.horizontalCenter: urlView.horizontalCenter
-                wrapMode: Text.Wrap
+                    Component {
+                        id: actionsMenu
+                        ContextMenu {
+                            MenuItem {
+                                text: qsTr("Copy to clipboard")
+                                onClicked: { Clipboard.text = url }
+                            }
+                            MenuItem {
+                                text: qsTr("Open in browser")
+                                onClicked: { Qt.openUrlExternally(url) }
+                            }
+                        }
+                    }
+                }
             }
 
             VerticalScrollDecorator {}

@@ -66,8 +66,12 @@
         <translation>Aired</translation>
     </message>
     <message>
-        <source>Copied to clipboard</source>
-        <translation>Copied to clipboard</translation>
+        <source>Copy to clipboard</source>
+        <translation>Copy to clipboard</translation>
+    </message>
+    <message>
+        <source>Open in browser</source>
+        <translation>Open in browser</translation>
     </message>
 </context>
 <context>

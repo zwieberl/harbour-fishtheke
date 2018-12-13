@@ -66,8 +66,12 @@
         <translation>Ausgestrahlt am</translation>
     </message>
     <message>
-        <source>Copied to clipboard</source>
-        <translation>In die Zwischenablage kopiert</translation>
+        <source>Copy to clipboard</source>
+        <translation>In die Zwischenablage kopieren</translation>
+    </message>
+    <message>
+        <source>Open in browser</source>
+        <translation>Im Browser öffnen</translation>
     </message>
 </context>
 <context>
