@@ -35,6 +35,10 @@
         <source>Design of icons and store-banner</source>
         <translation>Design of icons and store-banner</translation>
     </message>
+    <message>
+        <source>Help with German translation</source>
+        <translation>Help with German translation</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>

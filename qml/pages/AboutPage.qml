@@ -123,17 +123,20 @@ Page {
                     horizontalCenter: parent.horizontalCenter
                 }
             }
-
-            Label {
-                x: Theme.horizontalPageMargin
-                width: parent.width  - ( 2 * Theme.horizontalPageMargin )
-                text: "eLtMosen: " + qsTr("Design of icons and store-banner")
-                wrapMode: Text.Wrap
-                leftPadding: Theme.paddingLarge
-                anchors {
-                    horizontalCenter: parent.horizontalCenter
+            Repeater {
+                model: [["eLtMosen", qsTr("Design of icons and store-banner")],
+                        ["jgibbon", qsTr("Help with German translation")]]
+                Label {
+                    x: Theme.horizontalPageMargin
+                    width: parent.width  - ( 2 * Theme.horizontalPageMargin )
+                    text: modelData[0] + ": " + modelData[1]
+                    wrapMode: Text.Wrap
+                    leftPadding: Theme.paddingLarge
+                    anchors {
+                        horizontalCenter: parent.horizontalCenter
+                    }
+                    font.pixelSize: Theme.fontSizeSmall
                 }
-                font.pixelSize: Theme.fontSizeSmall
             }
 
             Label {
