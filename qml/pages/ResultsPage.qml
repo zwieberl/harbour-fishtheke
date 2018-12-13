@@ -8,7 +8,6 @@ Page {
             loadingIndicator.running = datafetcher.isSearchInProgress();
             loadingIndicator.visible = datafetcher.isSearchInProgress();
             if (!datafetcher.isSearchInProgress() && datafetcher.moreToLoad) {
-                console.warn('datafetcher.moreToLoad: ' + datafetcher.moreToLoad)
                 loadMoreMenu.enabled = true
             } else {
                 loadMoreMenu.enabled = false

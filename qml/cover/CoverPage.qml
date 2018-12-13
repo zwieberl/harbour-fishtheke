@@ -4,19 +4,26 @@ import Sailfish.Silica 1.0
 CoverBackground {
     Label {
         id: label
-        anchors.centerIn: parent
+        topPadding: Theme.paddingLarge
+        anchors.horizontalCenter: parent.horizontalCenter
         text: qsTr("Fishtheke")
     }
 
-//    CoverActionList {
-//        id: coverAction
+    Image {
+        source: "/usr/share/icons/hicolor/172x172/apps/harbour-fishtheke.png"
+        anchors {
+            verticalCenter: parent.verticalCenter
 
-//        CoverAction {
-//            iconSource: "image://theme/icon-cover-next"
-//        }
+            bottom: parent.bottom
+            bottomMargin: Theme.paddingMedium
 
-//        CoverAction {
-//            iconSource: "image://theme/icon-cover-pause"
-//        }
-//    }
+            right: parent.right
+            rightMargin: Theme.paddingMedium
+        }
+
+        fillMode: Image.PreserveAspectFit
+        width: parent.width - Theme.paddingMedium
+        opacity: 0.25
+
+    }
 }
