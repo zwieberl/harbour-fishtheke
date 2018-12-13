@@ -134,6 +134,13 @@ Page {
 
                     contentHeight: Theme.itemSizeMedium // two line delegate
                     ListView.onRemove: animateRemoval(listItem)
+                    onClicked: {
+                        if (menuOpen) {
+                            closeMenu()
+                        } else {
+                            openMenu()
+                        }
+                    }
 
                     function getOptionsAsString(display) {
                         var text = ""
