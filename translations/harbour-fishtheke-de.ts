@@ -39,6 +39,10 @@
         <source>Help with German translation</source>
         <translation>Hilfe mit der deutschen Übersetzung</translation>
     </message>
+    <message>
+        <source>Icons and banner licensed under CC-BY-3.0 (for details, see source code)</source>
+        <translation>Icons und Banner unter CC-BY-3.0 (siehe source code für Details)</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>

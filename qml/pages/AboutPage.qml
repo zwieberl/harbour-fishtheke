@@ -52,8 +52,24 @@ Page {
             }
 
             Label {
+                width: parent.width
+                padding: Theme.paddingLarge
                 text: qsTr("Licensed under MIT License")
                 font.pixelSize: Theme.fontSizeSmall
+                wrapMode: Text.Wrap
+                horizontalAlignment: Text.AlignHCenter
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                }
+            }
+
+            Label {
+                padding: Theme.paddingLarge
+                width: parent.width
+                text: qsTr("Icons and banner licensed under CC-BY-3.0 (for details, see source code)")
+                font.pixelSize: Theme.fontSizeSmall
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.Wrap
                 anchors {
                     horizontalCenter: parent.horizontalCenter
                 }
