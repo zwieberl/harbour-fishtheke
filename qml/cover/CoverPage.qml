@@ -12,17 +12,18 @@ CoverBackground {
     Image {
         source: "/usr/share/icons/hicolor/172x172/apps/harbour-fishtheke.png"
         anchors {
-            verticalCenter: parent.verticalCenter
-
             bottom: parent.bottom
             bottomMargin: Theme.paddingMedium
 
-            right: parent.right
-            rightMargin: Theme.paddingMedium
+            rightMargin: Theme.paddingLarge
+            leftMargin: Theme.paddingLarge
+
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: parent.verticalCenter
         }
 
         fillMode: Image.PreserveAspectFit
-        width: parent.width - Theme.paddingMedium
+        width: parent.width - 2 * Theme.paddingLarge
         opacity: 0.25
 
     }
