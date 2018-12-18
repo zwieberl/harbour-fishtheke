@@ -1,9 +1,66 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../utils.js" as Datehelper
+import Nemo.DBus 2.0
+import Nemo.Notifications 1.0
 
 Page {
     id: detailPage
+
+    Notification {
+         id: notification
+         urgency: Notification.Critical
+         isTransient: true
+     }
+
+    DBusInterface {
+        id: gallery
+        property bool isActive: false
+
+        service: 'com.jolla.gallery'
+        iface: 'com.jolla.gallery.ui'
+        path: '/com/jolla/gallery/ui'
+        Component.onCompleted: {
+            isActive = datafetcher.fileExists("/usr/bin/jolla-gallery")
+        }
+
+        function sendURL(url) {
+            typedCall('playVideoStream',
+                          { 'type': 'as', 'value': [url] },
+                          function(result) { console.log('Send ' + url + 'to gallery.') },
+                          function(error, message) { notification.previewSummary = qsTr('Failed to send to ') + qsTr('Jolla gallery');
+                                                     notification.previewBody = message;
+                                                     notification.publish()}
+                      )
+        }
+    }
+
+    DBusInterface {
+        id: jupii
+        property bool isActive: false
+        service: 'org.jupii'
+        iface: 'org.freedesktop.DBus.Peer'
+        path: '/'
+        Component.onCompleted: {
+            typedCall('Ping',
+                          [] ,
+                          function(result) { isActive = true
+                                             iface = 'org.jupii.Player'},
+                          function(error, message) { isActive = false }
+                      )
+        }
+
+        function sendURL(name, url) {
+            typedCall('addUrl',
+                          [{ 'type': 's', 'value': url },
+                          { 'type': 's', 'value': name }] ,
+                          function(result) { console.log('Send ' + url + 'to jupii.') },
+                          function(error, message) { notification.previewSummary = qsTr('Failed to send to ') + qsTr('Jupii');
+                                                     notification.previewBody = message;
+                                                     notification.publish()}
+                      )
+        }
+    }
 
     property var item
     SilicaFlickable {
@@ -94,6 +151,16 @@ Page {
                             MenuItem {
                                 text: qsTr("Open in browser")
                                 onClicked: { Qt.openUrlExternally(url) }
+                            }
+                            MenuItem {
+                                visible: gallery.isActive
+                                text: qsTr("Jolla gallery")
+                                onClicked: { gallery.sendURL(url) }
+                            }
+                            MenuItem {
+                                visible: jupii.isActive
+                                text: qsTr("Jupii")
+                                onClicked: { jupii.sendURL(detailPage.item.title, url) }
                             }
                         }
                     }

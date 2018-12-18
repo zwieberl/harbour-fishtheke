@@ -77,6 +77,18 @@
         <source>Open in browser</source>
         <translation>Im Browser öffnen</translation>
     </message>
+    <message>
+        <source>Jolla gallery</source>
+        <translation>Jolla Galerie</translation>
+    </message>
+    <message>
+        <source>Jupii</source>
+        <translation>Jupii</translation>
+    </message>
+    <message>
+        <source>Failed to send to </source>
+        <translation>Fehler beim Senden an </translation>
+    </message>
 </context>
 <context>
     <name>QueryDialog</name>

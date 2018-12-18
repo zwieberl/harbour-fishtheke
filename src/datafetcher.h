@@ -69,6 +69,7 @@ class Datafetcher : public QAbstractListModel
     Q_INVOKABLE void loadMore();
     Q_INVOKABLE bool isSearchInProgress();
     Q_INVOKABLE void reset();
+    Q_INVOKABLE bool fileExists(QString file);
 
     bool getMoreToLoad() const;
 

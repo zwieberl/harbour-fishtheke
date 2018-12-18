@@ -12,6 +12,11 @@ void Datafetcher::reset()
     endResetModel();
 }
 
+bool Datafetcher::fileExists(QString file)
+{
+    return QFile(file).exists();
+}
+
 bool Datafetcher::getMoreToLoad() const
 {
     return moreToLoad;
