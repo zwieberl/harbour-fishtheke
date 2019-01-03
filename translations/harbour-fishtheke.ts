@@ -89,6 +89,10 @@
         <source>Failed to send to </source>
         <translation>Failed to send to</translation>
     </message>
+    <message>
+        <source>LLs VideoPlayer</source>
+        <translation>LLs VideoPlayer</translation>
+    </message>
 </context>
 <context>
     <name>QueryDialog</name>

@@ -13,6 +13,33 @@ Page {
          isTransient: true
      }
 
+    Item {
+        id: browser
+        property bool isActive: true
+        function sendURL(name, url) {
+           Qt.openUrlExternally(url)
+        }
+    }
+
+    Item {
+        id: clipboard
+        property bool isActive: true
+        function sendURL(name, url) {
+           Clipboard.text = url
+        }
+    }
+
+    Item {
+        id: videoPlayer
+        property bool isActive: false
+        Component.onCompleted: {
+            isActive = datafetcher.fileExists("/usr/bin/harbour-videoPlayer")
+        }
+
+        function sendURL(name, url) {
+           datafetcher.runExternalCommand("/usr/bin/harbour-videoPlayer -p \"" + url + "\"")
+        }
+    }
     DBusInterface {
         id: gallery
         property bool isActive: false
@@ -24,7 +51,7 @@ Page {
             isActive = datafetcher.fileExists("/usr/bin/jolla-gallery")
         }
 
-        function sendURL(url) {
+        function sendURL(name, url) {
             typedCall('playVideoStream',
                           { 'type': 'as', 'value': [url] },
                           function(result) { console.log('Send ' + url + 'to gallery.') },
@@ -144,23 +171,18 @@ Page {
                     Component {
                         id: actionsMenu
                         ContextMenu {
-                            MenuItem {
-                                text: qsTr("Copy to clipboard")
-                                onClicked: { Clipboard.text = url }
-                            }
-                            MenuItem {
-                                text: qsTr("Open in browser")
-                                onClicked: { Qt.openUrlExternally(url) }
-                            }
-                            MenuItem {
-                                visible: gallery.isActive
-                                text: qsTr("Jolla gallery")
-                                onClicked: { gallery.sendURL(url) }
-                            }
-                            MenuItem {
-                                visible: jupii.isActive
-                                text: qsTr("Jupii")
-                                onClicked: { jupii.sendURL(detailPage.item.title, url) }
+                            Repeater {
+                                model: [[clipboard,   qsTr("Copy to clipboard")],
+                                        [browser,     qsTr("Open in browser")],
+                                        [gallery,     qsTr("Jolla gallery")],
+                                        [jupii,       qsTr("Jupii")],
+                                        [videoPlayer, qsTr("LLs VideoPlayer")],
+                                       ]
+                                MenuItem {
+                                    visible: modelData[0].isActive
+                                    text: modelData[1]
+                                    onClicked: { modelData[0].sendURL(detailPage.item.title, url) }
+                                }
                             }
                         }
                     }

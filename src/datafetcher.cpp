@@ -17,6 +17,13 @@ bool Datafetcher::fileExists(QString file)
     return QFile(file).exists();
 }
 
+bool Datafetcher::runExternalCommand(const QString &cmd)
+{
+    qDebug() << "Trying to start " + cmd;
+    QProcess *proc = new QProcess();
+    return proc->startDetached(cmd);
+}
+
 bool Datafetcher::getMoreToLoad() const
 {
     return moreToLoad;
