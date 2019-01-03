@@ -134,48 +134,47 @@ QVariant Datafetcher::data(const QModelIndex &index, int role) const
 }
 
 void Datafetcher::search()
-{
-    QList<QString> filter;
+{   
+    QJsonArray filters;
     for (auto& elem : queryFilters.getFilters()) {
-        QString filterstring;
-        filterstring += "{\"fields\":[";
-        QList<QString> fields;
+        QJsonObject filter;
+        QJsonArray fields;
 
         if (elem->getTitle()) {
-            fields.push_back("\"title\"");
+            fields.append("title");
         }
         if (elem->getChannel()) {
-            fields.push_back("\"channel\"");
+            fields.append("channel");
         }
         if (elem->getDescription()) {
-            fields.push_back("\"description\"");
+            fields.append("description");
         }
         if (elem->getTopic()) {
-            fields.push_back("\"topic\"");
+            fields.append("topic");
         }
-        filterstring += fields.join(',');
-        filterstring += "],\"query\":\"" + elem->getQuery() + "\"}";
+        filter.insert("fields", fields);
+        filter.insert("query", elem->getQuery());
 
-        filter.push_back(filterstring);
+        filters.append(filter);
     }
-    QString payload = "{\"queries\":[";
-    payload += filter.join(',');
-    payload += "],\"size\":" + QString::number(searchBlockSize)
-              + ",\"offset\":" + QString::number(offset)
-              + ",\"sortBy\":\"" + sortedByString(sortedBy) + "\""
-              + ",\"sortOrder\":\"" + sortOrderString(sortOrder) + "\"";
+    QJsonObject query;
+    query.insert("queries", filters);
+    query.insert("size", searchBlockSize);
+    query.insert("offset", offset);
+    query.insert("sortBy", sortedByString(sortedBy));
+    query.insert("sortOrder", sortOrderString(sortOrder));
     if (future) {
-        payload += ",\"future\":true";
+        query.insert("future", true);
     }
-    payload += "}";
-    qDebug() << "Searching: " << payload;
+
+    qDebug() << "Searching: " << QJsonDocument(query).toJson(QJsonDocument::JsonFormat::Compact);
 
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("text/plain;charset=UTF-8"));
     request.setUrl(QUrl("https://mediathekviewweb.de/api/query"));
     searching = true;
     emit searchStatusChanged();
-    manager->post(request, payload.toLatin1());
+    manager->post(request, QJsonDocument(query).toJson(QJsonDocument::JsonFormat::Compact));
 }
 
 void Datafetcher::loadMore()
@@ -218,4 +217,6 @@ void Datafetcher::handleQueryReply(QNetworkReply *reply)
             endInsertRows();
         }
     }
+
+    reply->deleteLater();
 }
