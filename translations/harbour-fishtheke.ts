@@ -78,19 +78,28 @@
         <translation>Open in browser</translation>
     </message>
     <message>
+        <source>Failed to send to %1</source>
+        <comment>%1 is application name</comment>
+        <translation>Failed to send to %1</translation>
+    </message>
+    <message>
         <source>Jolla gallery</source>
+        <comment>application name</comment>
         <translation>Jolla gallery</translation>
     </message>
     <message>
         <source>Jupii</source>
+        <comment>application name</comment>
         <translation>Jupii</translation>
     </message>
     <message>
-        <source>Failed to send to </source>
-        <translation>Failed to send to</translation>
+        <source>Kodimote</source>
+        <comment>application name</comment>
+        <translation>Kodimote</translation>
     </message>
     <message>
         <source>LLs VideoPlayer</source>
+        <comment>application name</comment>
         <translation>LLs VideoPlayer</translation>
     </message>
 </context>

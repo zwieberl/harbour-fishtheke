@@ -54,8 +54,8 @@ Page {
         function sendURL(name, url) {
             typedCall('playVideoStream',
                           { 'type': 'as', 'value': [url] },
-                          function(result) { console.log('Send ' + url + 'to gallery.') },
-                          function(error, message) { notification.previewSummary = qsTr('Failed to send to ') + qsTr('Jolla gallery');
+                          function(result) { console.log('Send ' + url + ' to gallery.') },
+                          function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Jolla gallery', 'application name'));
                                                      notification.previewBody = message;
                                                      notification.publish()}
                       )
@@ -81,13 +81,40 @@ Page {
             typedCall('addUrl',
                           [{ 'type': 's', 'value': url },
                           { 'type': 's', 'value': name }] ,
-                          function(result) { console.log('Send ' + url + 'to jupii.') },
-                          function(error, message) { notification.previewSummary = qsTr('Failed to send to ') + qsTr('Jupii');
+                          function(result) { console.log('Send ' + url + ' to jupii.') },
+                          function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Jupii', 'application name'));
                                                      notification.previewBody = message;
                                                      notification.publish()}
                       )
         }
     }
+
+    DBusInterface {
+        id:kodimote
+        property bool isActive: false
+        service: 'org.mpris.MediaPlayer2.kodimote'
+        iface: 'org.freedesktop.DBus.Peer'
+        path: '/org/mpris/MediaPlayer2'
+
+        Component.onCompleted: {
+            typedCall('Ping',
+                      [] ,
+                      function(result) { isActive = true
+                                         iface = 'org.mpris.MediaPlayer2.Player'},
+                      function(error, message) { isActive = false }
+                      )
+        }
+        function sendURL(name, url) {
+            typedCall('OpenUri',
+                      { 'type': 's', 'value': url } ,
+                      function(result) { console.log('Send ' + url + ' to Kodimote.') },
+                      function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Kodimote', 'application name'));
+                                                 notification.previewBody = message;
+                                                 notification.publish()}
+                      )
+        }
+    }
+
 
     property var item
     SilicaFlickable {
@@ -174,9 +201,10 @@ Page {
                             Repeater {
                                 model: [[clipboard,   qsTr("Copy to clipboard")],
                                         [browser,     qsTr("Open in browser")],
-                                        [gallery,     qsTr("Jolla gallery")],
-                                        [jupii,       qsTr("Jupii")],
-                                        [videoPlayer, qsTr("LLs VideoPlayer")],
+                                        [gallery,     qsTr("Jolla gallery", "application name")],
+                                        [jupii,       qsTr("Jupii", "application name")],
+                                        [kodimote,    qsTr("Kodimote", "application name")],
+                                        [videoPlayer, qsTr("LLs VideoPlayer", "application name")],
                                        ]
                                 MenuItem {
                                     visible: modelData[0].isActive
