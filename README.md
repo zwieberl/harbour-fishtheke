@@ -1,6 +1,13 @@
 # harbour-fishtheke
 mediathekviewweb-client for SailfishOS
 
+### v0.5
+- [x] Fix bug with Umlaute
+- [x] Add ability to send URL to Jupii
+- [x] Add ability to send URL to Kodimote
+- [x] Add ability to send URL to Jolla gallery
+- [x] Add ability to send URL to LLs VideoPlayer
+
 ### v0.4
 - [x] Add icon and banner (thanks to eLtMosen!)
 - [x] Added About-page
