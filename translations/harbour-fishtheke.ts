@@ -36,8 +36,8 @@
         <translation>Design of icons and store-banner</translation>
     </message>
     <message>
-        <source>Help with German translation</source>
-        <translation>Help with German translation</translation>
+        <source>Help with various topics</source>
+        <translation>Help with various topics</translation>
     </message>
     <message>
         <source>Icons and banner licensed under CC-BY-3.0 (for details, see source code)</source>

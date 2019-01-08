@@ -141,7 +141,7 @@ Page {
             }
             Repeater {
                 model: [["eLtMosen", qsTr("Design of icons and store-banner")],
-                        ["jgibbon", qsTr("Help with German translation")]]
+                        ["jgibbon", qsTr("Help with various topics")]]
                 Label {
                     x: Theme.horizontalPageMargin
                     width: parent.width  - ( 2 * Theme.horizontalPageMargin )
