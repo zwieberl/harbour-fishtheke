@@ -69,39 +69,6 @@
         <source>timestamp</source>
         <translation>Ausgestrahlt am</translation>
     </message>
-    <message>
-        <source>Copy to clipboard</source>
-        <translation>In die Zwischenablage kopieren</translation>
-    </message>
-    <message>
-        <source>Open in browser</source>
-        <translation>Im Browser öffnen</translation>
-    </message>
-    <message>
-        <source>Failed to send to %1</source>
-        <comment>%1 is application name</comment>
-        <translation>Fehler beim Senden an %1</translation>
-    </message>
-    <message>
-        <source>Jolla gallery</source>
-        <comment>application name</comment>
-        <translation>Jolla Galerie</translation>
-    </message>
-    <message>
-        <source>Jupii</source>
-        <comment>application name</comment>
-        <translation>Jupii</translation>
-    </message>
-    <message>
-        <source>Kodimote</source>
-        <comment>application name</comment>
-        <translation>Kodimote</translation>
-    </message>
-    <message>
-        <source>LLs VideoPlayer</source>
-        <comment>application name</comment>
-        <translation>LLs VideoPlayer</translation>
-    </message>
 </context>
 <context>
     <name>QueryDialog</name>
@@ -210,6 +177,50 @@
     <message>
         <source>About</source>
         <translation>Über</translation>
+    </message>
+</context>
+<context>
+    <name>SendingPage</name>
+    <message>
+        <source>Failed to send to %1</source>
+        <comment>%1 is application name</comment>
+        <translation>Fehler beim Senden an %1</translation>
+    </message>
+    <message>
+        <source>Jolla gallery</source>
+        <comment>application name</comment>
+        <translation>Jolla Galerie</translation>
+    </message>
+    <message>
+        <source>Jupii</source>
+        <comment>application name</comment>
+        <translation>Jupii</translation>
+    </message>
+    <message>
+        <source>Kodimote</source>
+        <comment>application name</comment>
+        <translation>Kodimote</translation>
+    </message>
+    <message>
+        <source>Sending URL</source>
+        <translation>Sende URL</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Open in browser</source>
+        <translation>Im Browser öffnen</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard</source>
+        <translation>In die Zwischenablage kopieren</translation>
+    </message>
+    <message>
+        <source>LLs VideoPlayer</source>
+        <comment>application name</comment>
+        <translation>LLs VideoPlayer</translation>
     </message>
 </context>
 </TS>
