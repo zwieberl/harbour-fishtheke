@@ -28,7 +28,7 @@ bool QueryFilters::removeRow(int row, const QModelIndex &parent)
     beginRemoveRows(parent, row, row);
     filters.removeAt(row);
     endRemoveRows();
-    emit filtersChanged();
+    emit filtersChanged(filters);
     return true;
 }
 
@@ -40,7 +40,7 @@ void QueryFilters::addFilter(FilterElement *s)
     filters.push_back(std::make_shared<FilterElement>(*s));
     endInsertRows();
 
-    emit filtersChanged();
+    emit filtersChanged(filters);
 }
 
 void QueryFilters::clearAllFilters()
@@ -48,7 +48,7 @@ void QueryFilters::clearAllFilters()
     beginResetModel();
     filters.clear();
     endResetModel();
-    emit filtersChanged();
+    emit filtersChanged(filters);
 }
 
 FilterElement* QueryFilters::createNewFilter()

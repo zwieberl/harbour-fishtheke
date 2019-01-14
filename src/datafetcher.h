@@ -4,94 +4,48 @@
 #include <QtGui>
 #include <QObject>
 #include "queryfilters.h"
-//#include <QtDeclarative>
+#include <map>
+#include <memory>
+
 class QNetworkAccessManager;
 class QNetworkReply;
 class FilterElement;
+class APIBase;
 
 // Wrapper-class needed to access Enum in QML
-class SortOrder : public QObject
+class APIs: public QObject
 {
     Q_OBJECT
     public:
-    SortOrder() : QObject() {}
-    enum EnumSortOrder
+    APIs() : QObject() {}
+    enum EnumAPIs
     {
-        DESC,
-        ASC
+        MEDIATHEKVIEWWEB_DE,
+        ARCHIVE_ORG
     };
-    Q_ENUMS(EnumSortOrder)
+    Q_ENUMS(EnumAPIs)
 };
 
-class SortKey : public QObject
-{
-    Q_OBJECT
-    public:
-    SortKey() : QObject() {}
-    enum EnumSortKey
-    {
-        TIMESTAMP,
-        CHANNEL,
-        DURATION
-    };
-    Q_ENUMS(EnumSortKey)
-};
-
-class Datafetcher : public QAbstractListModel
+class Datafetcher : public QObject
 {
  Q_OBJECT
 
  private:
-    QNetworkAccessManager *manager;
-    QJsonArray resultsArray;
-    bool searching = false;
-    int offset = 0;
-    bool moreToLoad = true;
-    int searchBlockSize = 25;
-    SortKey::EnumSortKey sortedBy = SortKey::TIMESTAMP;
-    SortOrder::EnumSortOrder sortOrder = SortOrder::DESC;
-    bool future = false;
-
+    std::map<APIs::EnumAPIs, std::shared_ptr<APIBase>> apis;
+    APIs::EnumAPIs currentAPI = APIs::EnumAPIs::MEDIATHEKVIEWWEB_DE;
  public:
-    QueryFilters queryFilters;
+    explicit Datafetcher();
+    Q_PROPERTY(APIs::EnumAPIs currentAPI READ getCurrentAPI WRITE setCurrentAPI)
 
-    explicit Datafetcher(QObject *parent = Q_NULLPTR);
-
-    virtual int rowCount(const QModelIndex&) const;
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    Q_PROPERTY(bool moreToLoad READ getMoreToLoad)
-    Q_PROPERTY(int searchBlockSize READ getSearchBlockSize WRITE setSearchBlockSize)
-    Q_PROPERTY(SortKey::EnumSortKey sortedBy READ getSortedBy WRITE setSortedBy)
-    Q_PROPERTY(SortOrder::EnumSortOrder sortOrder READ getSortOrder WRITE setSortOrder)
-    Q_PROPERTY(bool future READ getFuture WRITE setFuture)
-
-    Q_INVOKABLE void search();
-    Q_INVOKABLE void loadMore();
-    Q_INVOKABLE bool isSearchInProgress();
-    Q_INVOKABLE void reset();
     Q_INVOKABLE bool fileExists(QString file);
     Q_INVOKABLE bool runExternalCommand(const QString &cmd);
+    Q_INVOKABLE APIBase* getCurrentAPIObject();
 
-    bool getMoreToLoad() const;
-
-    int getSearchBlockSize() const;
-    void setSearchBlockSize(int value);
-
-    SortKey::EnumSortKey getSortedBy() const;
-    void setSortedBy(const SortKey::EnumSortKey &value);
-
-    SortOrder::EnumSortOrder getSortOrder() const;
-    void setSortOrder(const SortOrder::EnumSortOrder &value);
-
-    bool getFuture() const;
-    void setFuture(bool value);
+    APIs::EnumAPIs getCurrentAPI() const;
+    void setCurrentAPI(const APIs::EnumAPIs &value);
 
 public slots:
-    void handleQueryReply(QNetworkReply *reply);
-
-signals:
-   void searchStatusChanged();
-   void queryError(const QString &);
+    void handleFiltersChanged(const QList <std::shared_ptr<FilterElement>> &filters);
 };
 
 #endif // DATAFETCHER_H

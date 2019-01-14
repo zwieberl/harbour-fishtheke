@@ -25,7 +25,7 @@ class QueryFilters : public QAbstractListModel
         Q_INVOKABLE FilterElement* createNewFilter();
 
      signals:
-       void filtersChanged();
+       void filtersChanged(const QList <std::shared_ptr<FilterElement>> &filters);
 };
 
 #endif // QUERYFILTERS_H

@@ -6,6 +6,8 @@
 #include "datafetcher.h"
 #include "filterelement.h"
 #include "queryfilters.h"
+#include "apis/apibase.h"
+#include "apis/mediathekview.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,11 +26,17 @@ int main(int argc, char *argv[])
 
     Datafetcher dataFetcher;
     ctxt->setContextProperty("datafetcher", &dataFetcher);
-    ctxt->setContextProperty("queryFilters", &dataFetcher.queryFilters);
+
+    // These should be part of APIBase, but QML can't handle this. So we have
+    // to have it stand-alone
+    QueryFilters queryFilters;
+    ctxt->setContextProperty("queryFilters", &queryFilters);
+    QObject::connect(&queryFilters, &QueryFilters::filtersChanged, &dataFetcher, &Datafetcher::handleFiltersChanged);
 
     qmlRegisterType<FilterElement>("fishtheke.filterelement", 1, 0, "FilterElement");
     qmlRegisterType<SortKey>("fishtheke.sortkey", 1, 0, "SortKey");
     qmlRegisterType<SortOrder>("fishtheke.sortorder", 1, 0, "SortOrder");
+    qmlRegisterInterface<APIBase>("APIBase");
 
     view->setSource(SailfishApp::pathTo("qml/harbour-fishtheke.qml"));
     view->show();

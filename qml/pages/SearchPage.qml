@@ -6,6 +6,8 @@ import fishtheke.sortkey 1.0
 
 Page {
     id: searchPage
+    property var currentAPI: datafetcher.getCurrentAPIObject();
+
     // The effective value will be restricted by ApplicationWindow.allowedOrientations
     allowedOrientations: Orientation.All
 
@@ -71,14 +73,14 @@ Page {
                 onValueChanged: {
                     switch (currentIndex) {
                     case 2:
-                        datafetcher.sortedBy = SortKey.CHANNEL;
+                        currentAPI.sortedBy = SortKey.CHANNEL;
                         break;
                     case 1:
-                        datafetcher.sortedBy = SortKey.DURATION;
+                        currentAPI.sortedBy = SortKey.DURATION;
                         break;
                     case 0:
                     default:
-                        datafetcher.sortedBy = SortKey.TIMESTAMP;
+                        currentAPI.sortedBy = SortKey.TIMESTAMP;
                         break;
                     };
                 }
@@ -95,11 +97,11 @@ Page {
                 onValueChanged: {
                     switch (currentIndex) {
                     case 1:
-                        datafetcher.sortOrder = SortOrder.ASC;
+                        currentAPI.sortOrder = SortOrder.ASC;
                         break;
                     case 0:
                     default:
-                        datafetcher.sortOrder = SortOrder.DESC;
+                        currentAPI.sortOrder = SortOrder.DESC;
                         break;
                     };
                 }
@@ -115,7 +117,7 @@ Page {
                 valueText: value
                 label: qsTr("Items per search")
                 onValueChanged: {
-                    datafetcher.searchBlockSize = value;
+                    currentAPI.searchBlockSize = value;
                 }
             }
 

@@ -15,10 +15,12 @@ TARGET = harbour-fishtheke
 CONFIG += sailfishapp
 
 SOURCES += \
+    src/apis/apibase.cpp \
+    src/apis/mediathekview.cpp \
     src/datafetcher.cpp \
-    src/queryfilters.cpp \
     src/filterelement.cpp \
-    src/harbour-fishtheke.cpp
+    src/harbour-fishtheke.cpp \
+    src/queryfilters.cpp
 
 DISTFILES += \
     qml/cover/CoverPage.qml \
@@ -50,6 +52,8 @@ TRANSLATIONS += translations/harbour-fishtheke-de.ts \
                 translations/harbour-fishtheke.ts
 
 HEADERS += \
+    src/apis/apibase.h \
+    src/apis/mediathekview.h \
     src/datafetcher.h \
-    src/queryfilters.h \
-    src/filterelement.h
+    src/filterelement.h \
+    src/queryfilters.h

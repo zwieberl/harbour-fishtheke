@@ -2,12 +2,15 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../utils.js" as Datehelper
 Page {
+    property var currentAPI: datafetcher.getCurrentAPIObject();
+
     Connections {
-        target: datafetcher
+        target: currentAPI
         onSearchStatusChanged: {
-            loadingIndicator.running = datafetcher.isSearchInProgress();
-            loadingIndicator.visible = datafetcher.isSearchInProgress();
-            if (!datafetcher.isSearchInProgress() && datafetcher.moreToLoad) {
+            loadingIndicator.running = currentAPI.isSearchInProgress();
+            loadingIndicator.visible = currentAPI.isSearchInProgress();
+            if (!currentAPI.isSearchInProgress() && currentAPI.moreToLoad) {
+                console.warn('currentAPI.moreToLoad: ' + currentAPI.moreToLoad)
                 loadMoreMenu.enabled = true
             } else {
                 loadMoreMenu.enabled = false
@@ -18,16 +21,16 @@ Page {
     onStatusChanged: {
         if (status == PageStatus.Deactivating && pageStack.depth === 2) {
             // When deactivating because of DetailedView coming into view, we have pageStack.depth = 3
-            datafetcher.reset()
+            currentAPI.reset()
         }
 
         // There are 2 possibilities to get to "activating".
-        // Either open it for the first time. Then there are no rows in datafetcher
+        // Either open it for the first time. Then there are no rows in currentAPI
         // or when returning from viewing an item. But then there have to be
-        // rows in datafetcher. Thus if rows is 0, we are accessing this page
+        // rows in currentAPI. Thus if rows is 0, we are accessing this page
         // for the first time and start a search.
-        if (status == PageStatus.Activating && datafetcher.rowCount() === 0) {
-            datafetcher.search()
+        if (status == PageStatus.Activating && currentAPI.rowCount() === 0) {
+            currentAPI.search()
         }
     }
 
@@ -44,7 +47,7 @@ Page {
             MenuItem {
                 text: qsTr("Load more")
                 onClicked: {
-                    datafetcher.loadMore();
+                    currentAPI.loadMore();
                 }
             }
         }
@@ -55,7 +58,7 @@ Page {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        model: datafetcher
+        model: currentAPI
 
         delegate: ListItem {
             contentHeight: Theme.itemSizeLarge
@@ -111,12 +114,12 @@ Page {
         ViewPlaceholder {
             id: emptyText
             text: qsTr("No results found")
-            enabled: listView.count == 0 && !datafetcher.isSearchInProgress() && status == PageStatus.Active
+            enabled: listView.count == 0 && !currentAPI.isSearchInProgress() && status == PageStatus.Active
         }
 
         BusyIndicator {
             id: loadingIndicator
-            visible: datafetcher.isSearchInProgress()
+            visible: currentAPI.isSearchInProgress()
             running: visible
             anchors.centerIn: parent
             size: BusyIndicatorSize.Large
