@@ -120,7 +120,7 @@ Page {
             }
 
             SilicaListView {
-                height: parent.height
+                height: searchPage.height
                 width: parent.width
                 anchors.left: parent.left
 
