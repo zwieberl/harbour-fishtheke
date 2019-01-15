@@ -1,6 +1,7 @@
 #include "datafetcher.h"
 #include "filterelement.h"
 #include "apis/mediathekview.h"
+#include "apis/archiveorgapi.h"
 #include "apis/apibase.h"
 #include <QtNetwork>
 
@@ -24,7 +25,14 @@ bool Datafetcher::runExternalCommand(const QString &cmd)
 
 void Datafetcher::setCurrentAPI(const APIs::EnumAPIs &value)
 {
+    APIs::EnumAPIs old = currentAPI;
     currentAPI = value;
+    if (old != value) {
+        apis[currentAPI]->setSortedBy(apis[old]->getSortedBy());
+        apis[currentAPI]->setSortOrder(apis[old]->getSortOrder());
+        apis[currentAPI]->setQueryFilters(apis[old]->getQueryFilters());
+        emit apiChanged();
+    }
 }
 
 void Datafetcher::handleFiltersChanged(const QList<std::shared_ptr<FilterElement> > &filters)
@@ -35,8 +43,8 @@ void Datafetcher::handleFiltersChanged(const QList<std::shared_ptr<FilterElement
 Datafetcher::Datafetcher() : QObject()
 {
     apis = {
+            {APIs::EnumAPIs::ARCHIVE_ORG,         std::make_shared<ArchiveOrgAPI>(this)},
             {APIs::EnumAPIs::MEDIATHEKVIEWWEB_DE, std::make_shared<MediathekviewAPI>(this)},
-            //{APIs::EnumAPIs::ARCHIVE_ORG,         std::make_shared<ArchiveOrgAPI>()},
     };
 }
 

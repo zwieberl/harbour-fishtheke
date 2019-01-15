@@ -5,6 +5,13 @@ Page {
     property var currentAPI: datafetcher.getCurrentAPIObject();
 
     Connections {
+        target: datafetcher
+        onApiChanged: {
+            currentAPI = datafetcher.getCurrentAPIObject();
+        }
+    }
+
+    Connections {
         target: currentAPI
         onSearchStatusChanged: {
             loadingIndicator.running = currentAPI.isSearchInProgress();
@@ -70,17 +77,17 @@ Page {
                     width: parent.width
                     height: Theme.fontSizeExtraSmall
                     Label {
-                        width: parent.width / 4
+                        width: parent.width / 2
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeExtraSmall
-                        wrapMode: Text.Wrap
+                        truncationMode: TruncationMode.Fade
                         horizontalAlignment: Text.AlignLeft
                         leftPadding: Theme.paddingMedium
                         text: display.channel
                     }
 
                     Label {
-                        width: 3 * (parent.width / 4)
+                        width: parent.width / 2
                         color: Theme.secondaryColor
                         font.pixelSize: Theme.fontSizeExtraSmall
                         wrapMode: Text.Wrap

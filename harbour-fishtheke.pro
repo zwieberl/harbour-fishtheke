@@ -20,7 +20,8 @@ SOURCES += \
     src/datafetcher.cpp \
     src/filterelement.cpp \
     src/harbour-fishtheke.cpp \
-    src/queryfilters.cpp
+    src/queryfilters.cpp \
+    src/apis/archiveorgapi.cpp
 
 DISTFILES += \
     qml/cover/CoverPage.qml \
@@ -56,4 +57,5 @@ HEADERS += \
     src/apis/mediathekview.h \
     src/datafetcher.h \
     src/filterelement.h \
-    src/queryfilters.h
+    src/queryfilters.h \
+    src/apis/archiveorgapi.h

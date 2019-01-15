@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import fishtheke.filterelement 1.0
 import fishtheke.sortorder 1.0
 import fishtheke.sortkey 1.0
+import fishtheke.apis 1.0
 
 Page {
     id: searchPage
@@ -63,6 +64,29 @@ Page {
 
             ComboBox {
                 width: parent.width
+                label: qsTr("Source") + ":"
+
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("Mediathek")}
+                    MenuItem { text: qsTr("archive.org") }
+                }
+                onValueChanged: {
+                    switch (currentIndex) {
+                    case 1:
+                        datafetcher.currentAPI = APIs.ARCHIVE_ORG;
+                        break;
+                    case 0:
+                    default:
+                        datafetcher.currentAPI = APIs.MEDIATHEKVIEWWEB_DE;
+                        break;
+                    };
+                    currentAPI = datafetcher.getCurrentAPIObject();
+                }
+            }
+
+            ComboBox {
+                id: sortbox
+                width: parent.width
                 label: qsTr("Sorted by") + ":"
 
                 menu: ContextMenu {
@@ -87,6 +111,7 @@ Page {
             }
 
             ComboBox {
+                id: sortorderbox
                 width: parent.width
                 label: qsTr("Sort order") + ":"
 

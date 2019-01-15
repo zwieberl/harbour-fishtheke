@@ -29,6 +29,7 @@ Page {
         property bool isVisible: true
         property bool isEnabled: true
         function sendURL(name, url) {
+           console.log("URL: " + url)
            Clipboard.text = url
         }
         function init() {}

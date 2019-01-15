@@ -33,6 +33,7 @@ class Datafetcher : public QObject
  private:
     std::map<APIs::EnumAPIs, std::shared_ptr<APIBase>> apis;
     APIs::EnumAPIs currentAPI = APIs::EnumAPIs::MEDIATHEKVIEWWEB_DE;
+//    APIs::EnumAPIs currentAPI = APIs::EnumAPIs::ARCHIVE_ORG;
  public:
     explicit Datafetcher();
     Q_PROPERTY(APIs::EnumAPIs currentAPI READ getCurrentAPI WRITE setCurrentAPI)
@@ -46,6 +47,9 @@ class Datafetcher : public QObject
 
 public slots:
     void handleFiltersChanged(const QList <std::shared_ptr<FilterElement>> &filters);
+
+signals:
+    void apiChanged();
 };
 
 #endif // DATAFETCHER_H

@@ -178,6 +178,18 @@
         <source>About</source>
         <translation>Über</translation>
     </message>
+    <message>
+        <source>Source</source>
+        <translation>Quelle</translation>
+    </message>
+    <message>
+        <source>Mediathek</source>
+        <translation>Mediathek</translation>
+    </message>
+    <message>
+        <source>archive.org</source>
+        <translation>archive.org</translation>
+    </message>
 </context>
 <context>
     <name>SendingPage</name>

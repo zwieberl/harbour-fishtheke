@@ -62,6 +62,11 @@ void APIBase::setFuture(bool value)
     future = value;
 }
 
+QList<std::shared_ptr<FilterElement> > APIBase::getQueryFilters() const
+{
+    return queryFilters;
+}
+
 APIBase::APIBase(QObject *parent) : QAbstractListModel(parent)
 {
     manager = new QNetworkAccessManager();

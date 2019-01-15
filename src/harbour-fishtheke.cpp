@@ -36,6 +36,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<FilterElement>("fishtheke.filterelement", 1, 0, "FilterElement");
     qmlRegisterType<SortKey>("fishtheke.sortkey", 1, 0, "SortKey");
     qmlRegisterType<SortOrder>("fishtheke.sortorder", 1, 0, "SortOrder");
+    qmlRegisterType<APIs>("fishtheke.apis", 1, 0, "APIs");
+
     qmlRegisterInterface<APIBase>("APIBase");
 
     view->setSource(SailfishApp::pathTo("qml/harbour-fishtheke.qml"));

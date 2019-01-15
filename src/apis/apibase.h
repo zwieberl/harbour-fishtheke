@@ -72,6 +72,7 @@ class APIBase : public QAbstractListModel
 
     Q_INVOKABLE bool isSearchInProgress();
     Q_INVOKABLE void reset();
+    QList<std::shared_ptr<FilterElement> > getQueryFilters() const;
     Q_INVOKABLE void setQueryFilters(const QList <std::shared_ptr<FilterElement>> &filters);
 
     bool getMoreToLoad() const;
@@ -87,6 +88,7 @@ class APIBase : public QAbstractListModel
 
     bool getFuture() const;
     void setFuture(bool value);
+
 
 public slots:
     virtual void handleQueryReply(QNetworkReply *reply) = 0;
