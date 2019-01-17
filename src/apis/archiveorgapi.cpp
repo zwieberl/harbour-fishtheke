@@ -45,7 +45,7 @@ QVariant ArchiveOrgAPI::data(const QModelIndex &index, int role) const
         QMap<QString,QVariant> resultMap;
 
         resultMap.insert("title",       curr["title"].toString());
-        resultMap.insert("description", curr["description"].toString() + "\n" + curr["runtime"].toString());
+        resultMap.insert("description", curr["description"].toString());
         resultMap.insert("duration",    QTime(0,0).secsTo(QTime::fromString(curr["runtime"].toString(), Qt::ISODate)));
         resultMap.insert("channel",     curr["publisher"].toString());
         resultMap.insert("timestamp",   QDateTime::fromString(curr["date"].toString(), Qt::ISODate).toMSecsSinceEpoch() / 1000);
