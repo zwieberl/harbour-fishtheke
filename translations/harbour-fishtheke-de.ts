@@ -234,5 +234,9 @@
         <comment>application name</comment>
         <translation>LLs VideoPlayer</translation>
     </message>
+    <message>
+        <source>Copy title as well</source>
+        <translation>Kopiere auch den Titel</translation>
+    </message>
 </context>
 </TS>

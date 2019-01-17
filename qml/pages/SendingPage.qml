@@ -28,9 +28,14 @@ Page {
         id: clipboard
         property bool isVisible: true
         property bool isEnabled: true
+        property bool sendNameAsWell: false
         function sendURL(name, url) {
-           console.log("URL: " + url)
-           Clipboard.text = url
+           if (sendNameAsWell) {
+               Clipboard.text = name + url
+           } else {
+               Clipboard.text = url
+           }
+
         }
         function init() {}
     }
@@ -195,16 +200,29 @@ Page {
 
                 contentWidth: parent.width
                 width: parent.width;
-                contentHeight: Theme.itemSizeSmall // one line delegate
+                contentHeight: (obj == clipboard) ? 2 * Theme.itemSizeSmall : Theme.itemSizeSmall // one line delegate
                 enabled: obj.isEnabled
-                Label {
-                    id: streamButtonLabel
-                    enabled: obj.isEnabled
-                    padding: Theme.paddingMedium
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: objtext
-                    font.pixelSize: Theme.fontSizeLarge
-                    color: obj.isEnabled ? Theme.primaryColor : Theme.darkPrimaryColor;
+                Column {
+                    width: parent.width;
+
+                    Label {
+                        id: streamButtonLabel
+                        enabled: obj.isEnabled
+                        padding: Theme.paddingMedium
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: objtext
+                        font.pixelSize: Theme.fontSizeLarge
+                        color: obj.isEnabled ? Theme.primaryColor : Theme.darkPrimaryColor;
+                    }
+
+                    TextSwitch {
+                        id: sendNameSwitch
+                        visible: (obj == clipboard)
+                        checked: false
+                        text: qsTr("Copy title as well")
+                        leftMargin: Theme.paddingLarge
+                        onClicked: { clipboard.sendNameAsWell = checked; }
+                    }
                 }
             }
             VerticalScrollDecorator {}
