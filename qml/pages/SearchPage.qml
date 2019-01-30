@@ -228,6 +228,8 @@ Page {
                     hintText: qsTr("Pull down to add a filter")
                     enabled: filters.count == 0
                 }
+
+                VerticalScrollDecorator {}
             }
         }
     }

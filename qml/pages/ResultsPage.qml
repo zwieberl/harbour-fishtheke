@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import "../utils.js" as Datehelper
 Page {
     property var currentAPI: datafetcher.getCurrentAPIObject();
+    allowedOrientations: Orientation.All
 
     Connections {
         target: datafetcher

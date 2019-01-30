@@ -7,6 +7,7 @@ Page {
     property var item
     property string url
     property string type
+    allowedOrientations: Orientation.All
 
     Notification {
          id: notification

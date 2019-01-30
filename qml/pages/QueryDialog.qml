@@ -5,6 +5,7 @@ import fishtheke.filterelement 1.0
 Dialog {
     id: diag
     canNavigateForward: false
+    allowedOrientations: Orientation.All
     property FilterElement elem
 
     function checkForwardPossible() {

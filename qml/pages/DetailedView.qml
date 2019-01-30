@@ -4,6 +4,7 @@ import "../utils.js" as Datehelper
 
 Page {
     id: detailPage
+    allowedOrientations: Orientation.All
 
     property var item
     SilicaFlickable {
