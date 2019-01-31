@@ -4,6 +4,7 @@ import Nemo.DBus 2.0
 import Nemo.Notifications 1.0
 
 Page {
+    id: sendingPage
     property var item
     property string url
     property string type
@@ -137,6 +138,38 @@ Page {
         }
     }
 
+    DBusInterface {
+        id: vodman
+        property bool isVisible: false
+        property bool isEnabled: false
+        service: 'org.duckdns.jgressmann.vodman.app'
+        iface: 'org.freedesktop.DBus.Peer'
+        path: '/instance'
+        function init() {
+            isVisible = datafetcher.fileExists("/usr/bin/harbour-vodman")
+            console.log("Is visible: " + isVisible)
+            if (isVisible) {
+                typedCall('Ping',
+                              [] ,
+                              function(result) { isEnabled = true
+                                                 iface = 'org.duckdns.jgressmann.vodman.app'},
+                              function(error, message) { isEnabled = false }
+                          )
+            }
+
+        }
+
+        function sendURL(name, url) {
+            typedCall('download',
+                          { 'type': 's', 'value': url },
+                          function(result) { console.log('Send ' + url + 'to vodman.') },
+                          function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Vodman', 'application name'));
+                                                     notification.previewBody = message;
+                                                     notification.publish()}
+                      )
+        }
+    }
+
     Column {
         id: contentColumn
         spacing: Theme.paddingSmall
@@ -164,7 +197,7 @@ Page {
         SilicaListView {
             id: urlView
             // Warning! height: parent.height leads to a weird hanging of the UI for a couple of seconds.
-            height: 8 * (Theme.fontSizeLarge + Theme.paddingMedium)
+            height: sendingPage.height
             width: parent.width
             anchors.left: parent.left
             property string type
@@ -177,6 +210,7 @@ Page {
                                 [jupii,       qsTr("Jupii", "application name")],
                                 [kodimote,    qsTr("Kodimote", "application name")],
                                 [videoPlayer, qsTr("LLs VideoPlayer", "application name")],
+                                [vodman,      qsTr("Vodman", "application name")],
                                ];
                     for(var idx in objs) {
                         var obj = objs[idx][0]

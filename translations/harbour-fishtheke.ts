@@ -238,5 +238,10 @@
         <source>Copy title as well</source>
         <translation>Copy title as well</translation>
     </message>
+    <message>
+        <source>Vodman</source>
+        <comment>application name</comment>
+        <translation>Vodman</translation>
+    </message>
 </context>
 </TS>
