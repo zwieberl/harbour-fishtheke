@@ -5,7 +5,7 @@ static QString sortedByString(SortKey::EnumSortKey sortedBy)
 {
     switch (sortedBy) {
     case SortKey::CHANNEL:
-        return "publisher";
+        return "creatorSorter";
         break;
     case SortKey::DURATION:
         return "item_size"; // We can't sort according to runtime, sadly
@@ -47,7 +47,7 @@ QVariant ArchiveOrgAPI::data(const QModelIndex &index, int role) const
         resultMap.insert("title",       curr["title"].toString());
         resultMap.insert("description", curr["description"].toString());
         resultMap.insert("duration",    QTime(0,0).secsTo(QTime::fromString(curr["runtime"].toString(), Qt::ISODate)));
-        resultMap.insert("channel",     curr["publisher"].toString());
+        resultMap.insert("channel",     curr["creator"].toString());
         resultMap.insert("timestamp",   QDateTime::fromString(curr["date"].toString(), Qt::ISODate).toMSecsSinceEpoch() / 1000);
         resultMap.insert("url_website", "https://archive.org/details/" + curr["identifier"].toString());
 
@@ -67,30 +67,30 @@ void ArchiveOrgAPI::search()
     for (auto& elem : queryFilters) {
         QString searchQuery = elem->getQuery();
         if (elem->getTitle()) {
-            titles.append("title:" + searchQuery);
+            titles.append("(" + searchQuery.split(' ', QString::SkipEmptyParts).join("+AND+") + ")");
         }
         if (elem->getChannel()) {
-            publishers.append("publisher:" + searchQuery);
+            publishers.append("(" + searchQuery.split(' ', QString::SkipEmptyParts).join("+AND+") + ")");
         }
         if (elem->getDescription()) {
-            descriptions.append("description:" + searchQuery);
+            descriptions.append("(" + searchQuery.split(' ', QString::SkipEmptyParts).join("+AND+") + ")");
         }
         if (elem->getTopic()) {
-            collections.append("collection:" + searchQuery);
+            collections.append("(" + searchQuery.split(' ', QString::SkipEmptyParts).join("+AND+") + ")");
         }
     }
-    mediatypes.append("mediatype:movies"); // For now only videos
+    mediatypes.append("movies"); // For now only videos
 
     QStringList filters;
 
-    if (!titles.empty())       filters.append(titles.join("+AND+"));
-    if (!publishers.empty())   filters.append(publishers.join("+AND+"));
-    if (!descriptions.empty()) filters.append(descriptions.join("+AND+"));
-    if (!collections.empty())  filters.append(collections.join("+AND+"));
-    if (!mediatypes.empty())   filters.append(mediatypes.join("+AND+"));
+    if (!titles.empty())       filters.append("title:(" + titles.join("+OR+") + ")");
+    if (!publishers.empty())   filters.append("creator:(" + publishers.join("+OR+") + ")");
+    if (!descriptions.empty()) filters.append("description:(" + descriptions.join("+OR+") + ")");
+    if (!collections.empty())  filters.append("collection:(" + collections.join("+OR+") + ")");
+    if (!mediatypes.empty())   filters.append("mediatype:(" + mediatypes.join("+OR+") + ")");
 
     QStringList returnKeys = {"date", "description", "format", "identifier",
-                             "mediatype", "publisher", "title", "runtime"};
+                             "mediatype", "publisher", "creator", "title", "runtime"};
 
     QUrl url("https://archive.org/advancedsearch.php");
 
@@ -99,7 +99,7 @@ void ArchiveOrgAPI::search()
         urlquery.addQueryItem("fl[]", key);
     }
     urlquery.addQueryItem("rows", QString::number(searchBlockSize));
-    urlquery.addQueryItem("q", filters.join(",+"));
+    urlquery.addQueryItem("q", filters.join("+AND+"));
     urlquery.addQueryItem("page", QString::number(offset));
     urlquery.addQueryItem("output", "json");
     urlquery.addQueryItem("sort[]", sortedByString(sortedBy) + "+" + sortOrderString(sortOrder));
