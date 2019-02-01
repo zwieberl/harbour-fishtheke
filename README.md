@@ -1,6 +1,13 @@
 # harbour-fishtheke
 mediathekviewweb-client for SailfishOS
 
+### v0.6
+- [x] Add archive.org as source (this is beta! Also, archive's datasets are flaky, missing various fields)
+- [x] Add ability to send URL to Vodman for downloading (needs Vodman >= 1.1.2)
+- [x] Fix lagging UI bug
+- [x] Enable copying of title as well, when copying to Clipboard
+- [x] Enable panorama mode for all pages
+
 ### v0.5
 - [x] Fix bug with Umlaute
 - [x] Add ability to send URL to Jupii
