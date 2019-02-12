@@ -99,8 +99,11 @@ void MediathekviewAPI::search()
     query.insert("queries", filters);
     query.insert("size", searchBlockSize);
     query.insert("offset", offset);
-    query.insert("sortBy", sortedByString(sortedBy));
-    query.insert("sortOrder", sortOrderString(sortOrder));
+    if (sortedBy != SortKey::NONE) {
+        query.insert("sortBy", sortedByString(sortedBy));
+        query.insert("sortOrder", sortOrderString(sortOrder));
+    }
+
     if (future) {
         query.insert("future", true);
     }

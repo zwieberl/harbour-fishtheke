@@ -190,6 +190,10 @@
         <source>archive.org</source>
         <translation>archive.org</translation>
     </message>
+    <message>
+        <source>none</source>
+        <translation>Ohne Sortierung</translation>
+    </message>
 </context>
 <context>
     <name>SendingPage</name>

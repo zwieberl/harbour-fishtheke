@@ -102,7 +102,9 @@ void ArchiveOrgAPI::search()
     urlquery.addQueryItem("q", filters.join("+AND+"));
     urlquery.addQueryItem("page", QString::number(offset));
     urlquery.addQueryItem("output", "json");
-    urlquery.addQueryItem("sort[]", sortedByString(sortedBy) + "+" + sortOrderString(sortOrder));
+    if (sortedBy != SortKey::NONE) {
+        urlquery.addQueryItem("sort[]", sortedByString(sortedBy) + "+" + sortOrderString(sortOrder));
+    }
 
     url.setQuery(urlquery.query());
 

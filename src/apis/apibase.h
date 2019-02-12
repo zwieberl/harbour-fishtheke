@@ -31,6 +31,7 @@ class SortKey : public QObject
     SortKey() : QObject() {}
     enum EnumSortKey
     {
+        NONE,
         TIMESTAMP,
         CHANNEL,
         DURATION

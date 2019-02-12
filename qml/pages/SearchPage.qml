@@ -90,21 +90,27 @@ Page {
                 label: qsTr("Sorted by") + ":"
 
                 menu: ContextMenu {
+                    MenuItem { text: qsTr("none")}
                     MenuItem { text: qsTr("timestamp")}
                     MenuItem { text: qsTr("duration") }
                     MenuItem { text: qsTr("channel")  }
                 }
                 onValueChanged: {
+                    sortorderbox.enabled = true;
                     switch (currentIndex) {
-                    case 2:
+                    case 3:
                         currentAPI.sortedBy = SortKey.CHANNEL;
                         break;
-                    case 1:
+                    case 2:
                         currentAPI.sortedBy = SortKey.DURATION;
+                        break;
+                    case 1:
+                        currentAPI.sortedBy = SortKey.TIMESTAMP;
                         break;
                     case 0:
                     default:
-                        currentAPI.sortedBy = SortKey.TIMESTAMP;
+                        currentAPI.sortedBy = SortKey.NONE;
+                        sortorderbox.enabled = false;
                         break;
                     };
                 }
