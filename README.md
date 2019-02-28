@@ -1,6 +1,10 @@
 # harbour-fishtheke
 mediathekviewweb-client for SailfishOS
 
+### v0.7
+- [x] Add missing space between title and URL when copying to clipboard
+- [x] Add sort-option "None" for results sorted by backend (esp. useful for archive.org)
+
 ### v0.6
 - [x] Add archive.org as source (this is beta! Also, archive's datasets are flaky, missing various fields)
 - [x] Add ability to send URL to Vodman for downloading (needs Vodman >= 1.1.2)

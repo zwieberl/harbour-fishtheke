@@ -37,7 +37,7 @@ Page {
             }
 
             Label {
-                text: "Fishtheke 0.6"
+                text: "Fishtheke 0.7"
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Theme.fontSizeExtraLarge
                 anchors {
