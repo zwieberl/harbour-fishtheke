@@ -33,7 +33,7 @@ Page {
         property bool sendNameAsWell: false
         function sendURL(name, url) {
            if (sendNameAsWell) {
-               Clipboard.text = name + url
+               Clipboard.text = name + " " + url
            } else {
                Clipboard.text = url
            }
