@@ -19,9 +19,9 @@ Page {
             loadingIndicator.visible = currentAPI.isSearchInProgress();
             if (!currentAPI.isSearchInProgress() && currentAPI.moreToLoad) {
                 console.warn('currentAPI.moreToLoad: ' + currentAPI.moreToLoad)
-                loadMoreMenu.enabled = true
+                loadMoreMenu.visible = true
             } else {
-                loadMoreMenu.enabled = false
+                loadMoreMenu.visible = false
             }
         }
     }
