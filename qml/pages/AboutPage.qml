@@ -99,7 +99,7 @@ Page {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width  - ( 2 * Theme.horizontalPageMargin )
-                text: qsTr("Special thanks to mediathekviewweb.de for providing their service and allowing me to utilize it with fishtheke!")
+                text: qsTr("Special thanks to mediathekviewweb.de and archive.org for providing their service and allowing me to utilize it with fishtheke!")
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.Wrap
@@ -117,6 +117,17 @@ Page {
                 linkColor: Theme.highlightColor
 
                 onLinkActivated: Qt.openUrlExternally("https://mediathekviewweb.de/")
+            }
+
+            Text {
+                text: "<a href=\"https://archive.org/\">archive.org</a>"
+                anchors {
+                    horizontalCenter: parent.horizontalCenter
+                }
+                font.pixelSize: Theme.fontSizeSmall
+                linkColor: Theme.highlightColor
+
+                onLinkActivated: Qt.openUrlExternally("https://archive.org/")
             }
 
             Separator {

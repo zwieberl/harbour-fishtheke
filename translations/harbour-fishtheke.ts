@@ -28,8 +28,8 @@
         <translation>Filter</translation>
     </message>
     <message>
-        <source>Special thanks to mediathekviewweb.de for providing their service and allowing me to utilize it with fishtheke!</source>
-        <translation>Special thanks to mediathekviewweb.de for providing their service and allowing me to utilize it with fishtheke!</translation>
+        <source>Special thanks to mediathekviewweb.de and archive.org for providing their service and allowing me to utilize it with fishtheke!</source>
+        <translation>Special thanks to mediathekviewweb.de and archive.org for providing their service and allowing me to utilize it with fishtheke!</translation>
     </message>
     <message>
         <source>Design of icons and store-banner</source>

@@ -16,8 +16,8 @@
         <translation>Danksagungen</translation>
     </message>
     <message>
-        <source>Special thanks to mediathekviewweb.de for providing their service and allowing me to utilize it with fishtheke!</source>
-        <translation>Vielen Dank an mediathekviewweb.de für ihre Webseite und die Erlaubnis diese in fishtheke zu nutzen!</translation>
+        <source>Special thanks to mediathekviewweb.de and archive.org for providing their service and allowing me to utilize it with fishtheke!</source>
+        <translation>Vielen Dank an mediathekviewweb.de und archive.org für ihre Webseite und die Erlaubnis diese in fishtheke zu nutzen!</translation>
     </message>
     <message>
         <source>Contributions</source>
