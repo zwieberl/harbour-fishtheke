@@ -1,6 +1,10 @@
 # harbour-fishtheke
 mediathekviewweb-client for SailfishOS
 
+### v0.8
+- [x] Make filters editable
+- [x] Don't show PullUp indicator if no more search results can be fetched
+
 ### v0.7
 - [x] Add missing space between title and URL when copying to clipboard
 - [x] Add sort-option "None" for results sorted by backend (esp. useful for archive.org)
