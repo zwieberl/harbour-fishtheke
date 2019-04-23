@@ -194,6 +194,10 @@
         <source>none</source>
         <translation>None</translation>
     </message>
+    <message>
+        <source>Edit</source>
+        <translation>Edit</translation>
+    </message>
 </context>
 <context>
     <name>SendingPage</name>

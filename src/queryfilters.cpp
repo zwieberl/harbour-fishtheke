@@ -55,3 +55,13 @@ FilterElement* QueryFilters::createNewFilter()
 {
     return new FilterElement{};
 }
+
+void QueryFilters::update(const QModelIndex &/*index*/)
+{
+    // It should be possible to simply update the index,
+    // but this does not work. So I currently reset the whole model
+    //    emit dataChanged(index, index);
+    beginResetModel();
+    endResetModel();
+    emit filtersChanged(filters);
+}

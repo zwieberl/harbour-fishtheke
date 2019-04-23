@@ -192,6 +192,12 @@ Page {
                         return text;
                     }
 
+                    // For some reason JS/QML can't access queryFilters from the closure,
+                    // so we have to save the dialog an access it from a normal function
+                    function editOption() {
+                        queryFilters.update(index)
+                    }
+
                     Label {
                         id: label
                         rightPadding: Theme.paddingLarge
@@ -213,6 +219,13 @@ Page {
                     Component {
                         id: contextMenu
                         ContextMenu {
+                            MenuItem {
+                                text: qsTr("Edit")
+                                onClicked: {
+                                    var dialog = pageStack.push(Qt.resolvedUrl("QueryDialog.qml"), {"elem": display})
+                                    dialog.accepted.connect(editOption)
+                                }
+                            }
                             MenuItem {
                                 text: qsTr("Remove")
                                 onClicked: { queryFilters.removeRow(index, index) }

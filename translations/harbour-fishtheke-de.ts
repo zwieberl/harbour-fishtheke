@@ -194,6 +194,10 @@
         <source>none</source>
         <translation>Ohne Sortierung</translation>
     </message>
+    <message>
+        <source>Edit</source>
+        <translation>Ändere</translation>
+    </message>
 </context>
 <context>
     <name>SendingPage</name>

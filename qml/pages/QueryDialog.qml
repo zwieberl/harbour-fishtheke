@@ -56,10 +56,21 @@ Dialog {
                                 }
         }
     }
+    onOpened: {
+        if (elem) {
+            searchField.text = elem.query;
+            titleSwitch.checked = elem.title;
+            descriptionSwitch.checked = elem.description;
+            channelSwitch.checked = elem.channel;
+            checkForwardPossible()
+        }
+    }
 
     onDone: {
         if (result == DialogResult.Accepted) {
-            elem = queryFilters.createNewFilter()
+            if (!elem) {
+                elem = queryFilters.createNewFilter()
+            }
             elem.query = searchField.text
             elem.channel = channelSwitch.checked
             elem.title = titleSwitch.checked

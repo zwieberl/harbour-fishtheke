@@ -23,7 +23,7 @@ class QueryFilters : public QAbstractListModel
         Q_INVOKABLE void addFilter(FilterElement *s);
         Q_INVOKABLE void clearAllFilters();
         Q_INVOKABLE FilterElement* createNewFilter();
-
+        Q_INVOKABLE void update(const QModelIndex& index);
      signals:
        void filtersChanged(const QList <std::shared_ptr<FilterElement>> &filters);
 };
