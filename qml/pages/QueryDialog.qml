@@ -46,6 +46,9 @@ Dialog {
             width: parent.width
             placeholderText: qsTr("Search in Mediathek...")
             focus: true
+            // By default, text prediction is turned off for SearchFields,
+            // so we have to reactivate it by hand
+            inputMethodHints: Qt.ImhNone
             onTextChanged: checkForwardPossible()
 
             EnterKey.onClicked: {
