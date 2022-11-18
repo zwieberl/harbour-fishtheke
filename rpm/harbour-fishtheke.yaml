@@ -27,16 +27,16 @@ PkgConfigBR:
   - Qt5Quick
 
 # Build dependencies without a pkgconfig setup can be listed here
-# PkgBR:
-#   - package-needed-to-build
+PkgBR:
+  - qt5-qttools-linguist
 
 # Runtime dependencies which are not automatically detected
 Requires:
-  - sailfishsilica-qt5 >= 0.10.9 
+  - sailfishsilica-qt5 >= 0.10.9
 
 # All installed files
 Files:
-  - '%{_bindir}'
+  - '%{_bindir}/*'
   - '%{_datadir}/%{name}'
   - '%{_datadir}/applications/%{name}.desktop'
   - '%{_datadir}/icons/hicolor/*/apps/%{name}.png'
