@@ -200,7 +200,7 @@ Page {
                           },
                           function(error, message) {
                                   errorpopup (
-                                          qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('vodman.', 'application name')),
+                                          qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('vodman', 'application name')),
                                           message
                                   )
                           }

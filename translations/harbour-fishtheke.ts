@@ -261,10 +261,5 @@
         <comment>application name</comment>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>vodman.</source>
-        <comment>application name</comment>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 </TS>

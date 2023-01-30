@@ -261,10 +261,5 @@
         <comment>application name</comment>
         <translation>Vodman</translation>
     </message>
-    <message>
-        <source>vodman.</source>
-        <comment>application name</comment>
-        <translation>Vodman.</translation>
-    </message>
 </context>
 </TS>
