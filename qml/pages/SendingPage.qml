@@ -23,7 +23,7 @@ Page {
         notification.publish();
     }
     function popup(message) {
-        notification.previewSummary = mes;
+        notification.previewSummary = message;
         notification.previewBody = ""; // reset because we may have used it for an error
         notification.urgency = Notification.Normal;
         notification.expireTimeout = 3;
@@ -195,12 +195,12 @@ Page {
             typedCall('download',
                           { 'type': 's', 'value': url },
                           function(result) {
-                                  popup(qsTr('Opening %1', '%1 is application name').arg(qsTr('vodman', 'application name')))
+                                  popup(qsTr('Opening %1', '%1 is application name').arg(qsTr('Vodman', 'application name')))
                                   console.log('Send ' + url + 'to vodman.')
                           },
                           function(error, message) {
                                   errorpopup (
-                                          qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('vodman', 'application name')),
+                                          qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Vodman', 'application name')),
                                           message
                                   )
                           }
