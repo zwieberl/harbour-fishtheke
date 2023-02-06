@@ -251,5 +251,10 @@
         <comment>application name</comment>
         <translation>Vodman</translation>
     </message>
+    <message>
+        <source>Opening %1</source>
+        <comment>%1 is application name</comment>
+        <translation>Öffne %1</translation>
+    </message>
 </context>
 </TS>

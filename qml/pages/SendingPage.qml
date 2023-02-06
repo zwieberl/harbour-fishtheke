@@ -12,9 +12,23 @@ Page {
 
     Notification {
          id: notification
-         urgency: Notification.Critical
          isTransient: true
-     }
+    }
+
+    function errorpopup(summary, message) {
+        notification.previewSummary = summary;
+        notification.previewBody = message;
+        notification.urgency = Notification.Critical;
+        notification.expireTimeout = -1; // reset because we also use it in popup()
+        notification.publish();
+    }
+    function popup(message) {
+        notification.previewSummary = message;
+        notification.previewBody = ""; // reset because we may have used it for an error
+        notification.urgency = Notification.Normal;
+        notification.expireTimeout = 3;
+        notification.publish();
+    }
 
     Item {
         id: browser
@@ -69,10 +83,16 @@ Page {
         function sendURL(name, url) {
             typedCall('playVideoStream',
                           { 'type': 'as', 'value': [url] },
-                          function(result) { console.log('Send ' + url + 'to gallery.') },
-                          function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Jolla gallery', 'application name'));
-                                                     notification.previewBody = message;
-                                                     notification.publish()}
+                          function(result) {
+                                  popup(qsTr('Opening %1', '%1 is application name').arg(qsTr('Jolla gallery', 'application name')))
+                                  console.log('Send ' + url + 'to gallery.')
+                          },
+                          function(error, message) {
+                                  errorpopup(
+                                          qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Jolla gallery', 'application name')),
+                                          message
+                                  )
+                          }
                       )
         }
     }
@@ -101,10 +121,16 @@ Page {
             typedCall('addUrl',
                           [{ 'type': 's', 'value': url },
                           { 'type': 's', 'value': name }] ,
-                          function(result) { console.log('Send ' + url + 'to jupii.') },
-                          function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Jupii', 'application name'));
-                                                     notification.previewBody = message;
-                                                     notification.publish()}
+                          function(result) {
+                                  popup(qsTr('Opening %1', '%1 is application name').arg(qsTr('Jupii', 'application name')))
+                                  console.log('Send ' + url + 'to jupii.')
+                          },
+                          function(error, message) {
+                                  errorpopup(
+                                          qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Jupii', 'application name')),
+                                          message
+                                  )
+                          }
                       )
         }
     }
@@ -130,11 +156,17 @@ Page {
         function sendURL(name, url) {
           typedCall('OpenUri',
                     { 'type': 's', 'value': url } ,
-                    function(result) { console.log('Send ' + url + ' to Kodimote.') },
-                    function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Kodimote', 'application name'));
-                                               notification.previewBody = message;
-                                               notification.publish()}
-                    )
+                    function(result) {
+                                  popup(qsTr('Opening %1', '%1 is application name').arg(qsTr('Kodimote', 'application name')))
+                                  console.log('Send ' + url + ' to Kodimote.')
+                    },
+                    function(error, message) {
+                            errorpopup(
+                                    qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Kodimote', 'application name')),
+                                    message
+                            )
+                    }
+          )
         }
     }
 
@@ -162,10 +194,16 @@ Page {
         function sendURL(name, url) {
             typedCall('download',
                           { 'type': 's', 'value': url },
-                          function(result) { console.log('Send ' + url + 'to vodman.') },
-                          function(error, message) { notification.previewSummary = qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Vodman', 'application name'));
-                                                     notification.previewBody = message;
-                                                     notification.publish()}
+                          function(result) {
+                                  popup(qsTr('Opening %1', '%1 is application name').arg(qsTr('Vodman', 'application name')))
+                                  console.log('Send ' + url + 'to vodman.')
+                          },
+                          function(error, message) {
+                                  errorpopup (
+                                          qsTr('Failed to send to %1', '%1 is application name').arg(qsTr('Vodman', 'application name')),
+                                          message
+                                  )
+                          }
                       )
         }
     }
